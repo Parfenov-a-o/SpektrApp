@@ -1,0 +1,39 @@
+﻿<Window x:Class="SpektrApp.Views.Handbook.ClientView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpektrApp.Views.Handbook"
+        mc:Ignorable="d"
+        Title="ClientView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Адрес" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Width="15*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Контактное лицо" Width="15*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Номер телефона" Width="20*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Left">
+                <Button Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10"></Button>
+                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10"></Button>
+                <Button Content="Изменить" Width="100" Margin="10"></Button>
+            </DockPanel>
+        </StackPanel>
+        
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Button Content="Отмена" DockPanel.Dock="Left" Width="100"></Button>
+            <Button Content="Сохранить" DockPanel.Dock="Right" Width="100"></Button>
+            <Label></Label>
+        </DockPanel>
+    </Grid>
+</Window>
