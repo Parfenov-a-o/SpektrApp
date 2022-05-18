@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpektrApp.Models
 {
-    //Модель "Клиент"
+    //Модель "Клиент Hello, World!"
     internal class Client:BaseModel
     {
         private string? _name;
