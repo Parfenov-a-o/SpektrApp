@@ -35,5 +35,45 @@ namespace SpektrApp
                 //ClientMenuItem.IsEnabled = true;
             }
         }
+
+        private void EmployeeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //EmployeeMenuItem.IsEnabled = false;
+            EmployeeView view = new EmployeeView();
+            if (view.ShowDialog() == true)
+            {
+                //EmployeeMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void PositionEmployeeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //PositionEmployeeMenuItem.IsEnabled = false;
+            PositionEmployeeView view = new PositionEmployeeView();
+            if (view.ShowDialog() == true)
+            {
+                //PositionEmployeeMenuItem.IsEnabled = true;
+            }
+        }
+        
+        private void EquipmentMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //EquipmentMenuItem.IsEnabled = false;
+            EquipmentView view = new EquipmentView();
+            if (view.ShowDialog() == true)
+            {
+                //EquipmentMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void CategoryEquipmentMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //CategoryEquipmentMenuItem.IsEnabled = false;
+            CategoryEquipmentView view = new CategoryEquipmentView();
+            if (view.ShowDialog() == true)
+            {
+                //CategoryEquipmentMenuItem.IsEnabled = true;
+            }
+        }
     }
 }
