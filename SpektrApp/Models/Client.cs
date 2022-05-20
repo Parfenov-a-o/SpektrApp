@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpektrApp.Models
 {
-    //Модель "Клиент Hello, World!"
+    //Модель "Клиент"
     internal class Client:BaseModel
     {
         private string? _name;
@@ -47,7 +47,9 @@ namespace SpektrApp.Models
             get { return _contacts; }
             set { _contacts = value; OnPropertyChanged("Contacts"); }
         }
-        //Добавить список обслуживаемых объектов и список выполненных монтажных проектов
-
+        //Список монтажных проектов
+        public List<CompletedProject> CompletedProjects { get; set; } = new();
+        //Список обслуживаемых объектов
+        public List<MaintainedObject> MaintainedObjects { get; set; } = new();
     }
 }

@@ -14,6 +14,7 @@ namespace SpektrApp.Models
         private int _equipmentId;
         private Equipment? _equipment;
 
+        public int Id { get; set; }
         //Номер позиции
         public int IndexNumber
         {
