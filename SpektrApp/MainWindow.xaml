@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Главное меню" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Добавить заказ">
+                <MenuItem Header="Добавить монтаж"></MenuItem>
+                <MenuItem Header="Добавить обслуживание"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Справочники">
+                <MenuItem x:Name="ClientMenuItem" Header="Клиенты" Click="ClientMenuItem_Click"></MenuItem>
+                <MenuItem Header="Сотрудники"></MenuItem>
+                <MenuItem Header="Должности сотрудников"></MenuItem>
+                <MenuItem Header="Оборудование"></MenuItem>
+                <MenuItem Header="Категории оборудования"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Отчеты">
+                <MenuItem Header="Монтажные проекты"></MenuItem>
+                <MenuItem Header="Обслуживаемые объекты"></MenuItem>
+            </MenuItem>
+        </Menu>
     </Grid>
 </Window>

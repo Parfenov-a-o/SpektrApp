@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SpektrApp.Views.Handbook;
 
 namespace SpektrApp
 {
@@ -23,6 +24,16 @@ namespace SpektrApp
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ClientMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //ClientMenuItem.IsEnabled = false;
+            ClientView view = new ClientView();
+            if(view.ShowDialog() == true)
+            {
+                //ClientMenuItem.IsEnabled = true;
+            }
         }
     }
 }
