@@ -24,6 +24,8 @@ namespace SpektrApp.Views.Handbook
         {
             InitializeComponent();
 
+            this.DataContext = new ClientViewModel();
+
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

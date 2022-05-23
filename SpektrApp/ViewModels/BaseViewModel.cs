@@ -16,6 +16,7 @@ namespace SpektrApp.ViewModels
     {
         protected ApplicationContext db;
         protected RelayCommand deleteCommand;
+        
 
         // команда удаления
         public RelayCommand DeleteCommand
@@ -67,6 +68,8 @@ namespace SpektrApp.ViewModels
                   }));
             }
         }
+
+
 
 
 
