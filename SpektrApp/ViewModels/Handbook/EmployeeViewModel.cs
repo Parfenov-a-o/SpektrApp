@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpektrApp.Models;
+using SpektrApp.ViewModels.Handbook.EditInformationViewModels;
+using SpektrApp.Views.Handbook.EditInfoViews;
+using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
     internal class EmployeeViewModel:BaseViewModel
     {
+        private RelayCommand addCommand;
+        private RelayCommand editCommand;
         private IEnumerable<Employee> _employeeList;
         private IEnumerable<EmployeePosition> _employeePositionList;
         private Employee? _selectedEmployee;

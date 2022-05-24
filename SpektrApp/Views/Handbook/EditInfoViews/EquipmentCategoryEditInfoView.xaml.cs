@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.Handbook.EditInformationViewModels;
+
 
 namespace SpektrApp.Views.Handbook.EditInfoViews
 {
@@ -19,9 +21,11 @@ namespace SpektrApp.Views.Handbook.EditInfoViews
     /// </summary>
     public partial class EquipmentCategoryEditInfoView : Window
     {
-        public EquipmentCategoryEditInfoView()
+        internal EquipmentCategoryEditInfoView(EquipmentCategoryEditInfoViewModel equipcatvm)
         {
             InitializeComponent();
+
+            this.DataContext = equipcatvm;
         }
     }
 }

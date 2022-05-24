@@ -4,11 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpektrApp.Models;
+using SpektrApp.ViewModels.Handbook.EditInformationViewModels;
+using SpektrApp.Views.Handbook.EditInfoViews;
+using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
     internal class EquipmentViewModel:BaseViewModel
     {
+        private RelayCommand addCommand;
+        private RelayCommand editCommand;
         private IEnumerable<Equipment> _equipmentList;
         private IEnumerable<EquipmentCategory> _equipmentCategoryList;
         private Equipment _selectedEquipment;
