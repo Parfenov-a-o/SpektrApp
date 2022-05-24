@@ -14,10 +14,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EquipmentCategoryList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="10*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Наименование" Width="90*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="10*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="90*" Binding="{Binding Name}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
