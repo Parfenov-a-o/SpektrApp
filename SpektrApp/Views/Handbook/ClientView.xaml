@@ -26,7 +26,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10"></Button>
+                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10" Click="AddButton_Click"></Button>
                 <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10"></Button>
                 <Button Content="Изменить" Width="100" Margin="10"></Button>
             </DockPanel>
