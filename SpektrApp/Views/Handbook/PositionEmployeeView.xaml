@@ -14,16 +14,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EmployeePositionList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEmployeePosition}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="10*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Наименование должности" Width="100*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="10*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование должности" Width="100*" Binding="{Binding Name}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                <Button Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10"></Button>
-                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10"></Button>
-                <Button Content="Изменить" Width="100" Margin="10"></Button>
+                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Изменить" Width="100" Margin="10" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
             </DockPanel>
         </StackPanel>
 

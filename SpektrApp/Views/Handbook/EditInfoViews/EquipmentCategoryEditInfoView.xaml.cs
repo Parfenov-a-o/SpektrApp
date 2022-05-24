@@ -27,5 +27,15 @@ namespace SpektrApp.Views.Handbook.EditInfoViews
 
             this.DataContext = equipcatvm;
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
     }
 }

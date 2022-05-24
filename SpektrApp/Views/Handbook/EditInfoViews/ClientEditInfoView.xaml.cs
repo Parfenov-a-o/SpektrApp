@@ -31,5 +31,10 @@ namespace SpektrApp.Views.Handbook.EditInfoViews
         {
             this.DialogResult = true;
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

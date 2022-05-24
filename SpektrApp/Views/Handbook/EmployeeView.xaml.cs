@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.Handbook;
 
 namespace SpektrApp.Views.Handbook
 {
@@ -22,6 +23,7 @@ namespace SpektrApp.Views.Handbook
         public EmployeeView()
         {
             InitializeComponent();
+            this.DataContext = new EmployeeViewModel();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

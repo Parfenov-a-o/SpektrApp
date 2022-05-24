@@ -14,21 +14,21 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EmployeeList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEmployee}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="ФИО" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Пол" Width="10*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата рождения" Width="15*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Мобильный телефон" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Email" Width="15*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Должность" Width="15*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ФИО" Width="20*" Binding="{Binding Surname}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Пол" Width="10*" Binding="{Binding Gender}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата рождения" Width="15*" Binding="{Binding DateOfBirth}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Мобильный телефон" Width="20*" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Width="15*" Binding="{Binding Email}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность" Width="15*" Binding="{Binding EmployeePositionId}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                <Button Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10"></Button>
-                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10"></Button>
-                <Button Content="Изменить" Width="100" Margin="10"></Button>
+                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Изменить" Width="100" Margin="10" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
             </DockPanel>
         </StackPanel>
 
