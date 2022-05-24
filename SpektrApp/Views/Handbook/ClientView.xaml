@@ -15,14 +15,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Наименование" Width="25*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Адрес" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Email" Width="15*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Контактное лицо" Width="15*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Номер телефона" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="25*" Binding="{Binding Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Адрес" Width="20*" Binding="{Binding Address}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Width="15*" Binding="{Binding Email}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Контактное лицо" Width="15*" Binding="{Binding Contacts}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Номер телефона" Width="20*" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
