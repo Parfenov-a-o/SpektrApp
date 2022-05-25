@@ -16,14 +16,14 @@
         <StackPanel Grid.Row="0">
             <DockPanel Margin="5">
                 <TextBlock Text="Выберите категорию оборудования" Margin="0 0 10 0"></TextBlock>
-                <TextBox></TextBox>
+                <ComboBox ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name"></ComboBox>
             </DockPanel>
             <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EquipmentList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEquipment}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Наименование" Width="30*"  Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Описание" Width="35*" Binding="{Binding Description}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Категория" Width="15*" Binding="{Binding EquipmentCategory}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Категория" Width="15*" Binding="{Binding EquipmentCategory.Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Единица измерения" Width="15*" Binding="{Binding Units}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

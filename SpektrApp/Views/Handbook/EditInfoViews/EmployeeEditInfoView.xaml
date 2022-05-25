@@ -19,7 +19,7 @@
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Выберите должность:" Margin="0 0 35 0"></TextBlock>
-                <TextBox ></TextBox>
+                <ComboBox ItemsSource="{Binding EmployeePositionList}" DisplayMemberPath="Name"></ComboBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Мобильный телефон:" Margin="0 0 35 0"></TextBlock>
@@ -29,9 +29,9 @@
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Дата рождения:" Margin="0 0 65 0"></TextBlock>
-                <TextBox Width="400" Margin="0 0 5 0"></TextBox>
+                <DatePicker Width="400" Margin="0 0 5 0"></DatePicker>
                 <TextBlock Text="Пол:" Margin="0 0 5 0"></TextBlock>
-                <TextBox></TextBox>
+                <RadioButton></RadioButton>
             </DockPanel>
         </StackPanel>
 
