@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpektrApp;
 
@@ -10,9 +11,10 @@ using SpektrApp;
 namespace SpektrApp.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220525041307_003")]
+    partial class _003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -56,13 +58,6 @@ namespace SpektrApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Высшая школа экономики"
-                        });
                 });
 
             modelBuilder.Entity("SpektrApp.Models.CompletedProject", b =>
@@ -133,35 +128,6 @@ namespace SpektrApp.Migrations
                     b.HasIndex("EmployeePositionId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EmployeePositionId = 1,
-                            FirstName = "Олег",
-                            Gender = "Мужской",
-                            Patronymic = "Алексеевич",
-                            Surname = "Парфенов"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EmployeePositionId = 2,
-                            FirstName = "Светлана",
-                            Gender = "Женский",
-                            Patronymic = "Михайловна",
-                            Surname = "Парфенова"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EmployeePositionId = 3,
-                            FirstName = "Антон",
-                            Gender = "Мужской",
-                            Patronymic = "Анатольевич",
-                            Surname = "Баранов"
-                        });
                 });
 
             modelBuilder.Entity("SpektrApp.Models.EmployeePosition", b =>
@@ -176,23 +142,6 @@ namespace SpektrApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployeePositions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Директор"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Бухгалтер"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Сотрудник монтажной бригады"
-                        });
                 });
 
             modelBuilder.Entity("SpektrApp.Models.Equipment", b =>
@@ -218,22 +167,6 @@ namespace SpektrApp.Migrations
                     b.HasIndex("EquipmentCategoryId");
 
                     b.ToTable("Equipments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EquipmentCategoryId = 1,
-                            Name = "ДИП-31",
-                            Units = "Шт."
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EquipmentCategoryId = 2,
-                            Name = "C2000-М",
-                            Units = "Шт."
-                        });
                 });
 
             modelBuilder.Entity("SpektrApp.Models.EquipmentCategory", b =>
@@ -249,18 +182,6 @@ namespace SpektrApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EquipmentCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Датчики"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Приборы"
-                        });
                 });
 
             modelBuilder.Entity("SpektrApp.Models.InstalledEquipment", b =>

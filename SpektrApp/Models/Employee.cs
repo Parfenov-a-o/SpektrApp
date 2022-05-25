@@ -76,6 +76,8 @@ namespace SpektrApp.Models
             set { _employeePosition = value; OnPropertyChanged(nameof(EmployeePosition)); }
         }
 
+        public string? FullName { get; }
+
 
         //Список монтажных проектов
         public List<CompletedProject> CompletedProjects { get; set; } = new();
