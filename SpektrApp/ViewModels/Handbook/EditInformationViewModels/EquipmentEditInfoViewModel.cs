@@ -35,7 +35,12 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
 
             db = new ApplicationContext();
             _equipmentCategoryList = db.EquipmentCategories.ToList();
-            _selectedEquipmentCategory = equip.EquipmentCategory;
+            if(equip.Id!=0)
+            {
+                _selectedEquipmentCategory = db.EquipmentCategories.Find(equip.EquipmentCategory.Id);
+            }
+
+            //_selectedEquipmentCategory = equip.EquipmentCategory;
         }
     }
 }

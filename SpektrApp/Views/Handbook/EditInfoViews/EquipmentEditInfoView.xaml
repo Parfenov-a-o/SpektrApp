@@ -23,11 +23,11 @@
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Выберите категорию:" Margin="0 0 29 0"></TextBlock>
-                <ComboBox  ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name"></ComboBox>
+                <ComboBox  ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Описание:" Margin="0 0 90 0"></TextBlock>
-                <TextBox Text="{Binding Client.Description}"></TextBox>
+                <TextBox Text="{Binding Equipment.Description}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
                 <TextBlock Text="Единица измерения:" Margin="0 0 34 0"></TextBlock>
