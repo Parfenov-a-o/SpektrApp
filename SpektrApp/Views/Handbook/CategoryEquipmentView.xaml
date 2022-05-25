@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook"
         mc:Ignorable="d"
-        Title="Категории оборудования" Height="400" Width="500"
+        Title="Категории оборудования" Height="450" Width="500"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="90*"></RowDefinition>
@@ -21,14 +25,14 @@
                 </DataGrid.Columns>
             </DataGrid>
             <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Width="100" Margin="10" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
-                <Button Content="Удалить" DockPanel.Dock="Right" Width="100" Margin="10" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
-                <Button Content="Изменить" Width="100" Margin="10" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
             </DockPanel>
         </StackPanel>
 
         <DockPanel Grid.Row="1" LastChildFill="True">
-            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Width="100" Click="BackButton_Click"></Button>
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Label></Label>
         </DockPanel>
     </Grid>
