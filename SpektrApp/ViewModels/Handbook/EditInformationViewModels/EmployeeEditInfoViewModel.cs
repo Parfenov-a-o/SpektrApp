@@ -34,6 +34,12 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
             get { return _selectedEmployeePosition; }
             set { _selectedEmployeePosition = value; OnPropertyChanged(nameof(SelectedEmployeePosition)); }
         }
+        public IEnumerable<string> GenderList
+        {
+            get { return _genderList; }
+            set { _genderList = value; OnPropertyChanged(nameof(GenderList)); }
+        }
+
 
         public EmployeeEditInfoViewModel(Employee empl)
         {
