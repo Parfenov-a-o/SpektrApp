@@ -17,7 +17,7 @@
             <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EmployeeList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEmployee}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="ФИО" Width="20*" Binding="{Binding FullName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ФИО" Width="20*" Binding="{Binding Surname}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Пол" Width="10*" Binding="{Binding Gender}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Дата рождения" Width="15*" Binding="{Binding DateOfBirth}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Мобильный телефон" Width="20*" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
