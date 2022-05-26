@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
-        Title="EmployeeEditInfoView" Height="450" Width="800"
+        Title="Добавление и изменение данных сотрудников" Height="350" Width="600"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
@@ -13,46 +13,58 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DockPanel Margin="5">
-                <TextBlock Text="Введите ФИО сотрудника:" Margin="0 0 10 0"></TextBlock>
-                <TextBox Text="{Binding Employee.Name}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Введите фамилию:" Margin="0 0 35 0"></TextBlock>
-                <TextBox Text="{Binding Employee.Surname}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Введите имя:" Margin="0 0 35 0"></TextBlock>
-                <TextBox Text="{Binding Employee.FirstName}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Введите отчество:" Margin="0 0 35 0"></TextBlock>
-                <TextBox Text="{Binding Employee.Patronymic}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Выберите должность:" Margin="0 0 35 0"></TextBlock>
-                <ComboBox ItemsSource="{Binding EmployeePositionList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEmployeePosition}"></ComboBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Мобильный телефон:" Margin="0 0 35 0"></TextBlock>
-                <TextBox Width="200" Margin="0 0 5 0" Text="{Binding Employee.PhoneNumber}"></TextBox>
-                <TextBlock Text="Email:" Margin="0 0 5 0"></TextBlock>
-                <TextBox Text="{Binding Employee.Email}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Дата рождения:" Margin="0 0 65 0"></TextBlock>
-                <DatePicker Width="400" Margin="0 0 5 0" SelectedDate="{Binding Employee.DateOfBirth}"></DatePicker>
-                <TextBlock Text="Пол:" Margin="0 0 5 0"></TextBlock>
-                <ComboBox ItemsSource="{Binding GenderList}" SelectedItem="{Binding Employee.Gender}"></ComboBox>
-            </DockPanel>
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="90*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Фамилия:"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Employee.Surname}" Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBlock Text="Имя:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Employee.FirstName}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBlock Text="Отчество:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Employee.Patronymic}" Grid.Row="2" Grid.Column="1"></TextBox>
+            </Grid>
         </StackPanel>
 
-        <DockPanel Grid.Row="1" LastChildFill="True">
+        <StackPanel Grid.Row="1" Width="500" HorizontalAlignment="Left">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Выберите должность:"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialContacts}" ItemsSource="{Binding EmployeePositionList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEmployeePosition}" Grid.Row="0" Grid.Column="1"></ComboBox>
+                <TextBlock Text="Мобильный телефон:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialPhoneNumber}" Text="{Binding Employee.PhoneNumber}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBlock Text="Email:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialEmail}" Text="{Binding Employee.Email}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBlock Style="{StaticResource SpecialDateOfBirth}" Text="Дата рождения:" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <DatePicker Style="{StaticResource SpecialDateOfBirthDate}" SelectedDate="{Binding Employee.DateOfBirth}" Grid.Row="3" Grid.Column="1"></DatePicker>
+                <TextBlock Style="{StaticResource SpecialGender}"  Text="Пол:" Grid.Row="3" Grid.Column="2"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialGenderComboBox}" ItemsSource="{Binding GenderList}" SelectedItem="{Binding Employee.Gender}" Grid.Row="3" Grid.Column="3"></ComboBox>
+            </Grid>
+        </StackPanel>
+        <DockPanel Grid.Row="2" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
             <Label></Label>

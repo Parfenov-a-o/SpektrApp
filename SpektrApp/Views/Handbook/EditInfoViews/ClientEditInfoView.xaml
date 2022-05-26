@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
-        Title="Добавление и изменение данных клиентов" Height="450" Width="800"
+        Title="Добавление и изменение данных клиентов" Height="350" Width="550"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
@@ -13,32 +13,51 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="65*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <DockPanel Margin="5">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="75*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
                 <TextBlock Text="Название организации:"></TextBlock>
-                <TextBox Text="{Binding Client.Name}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Адрес организации:" Margin="0 0 20 0"></TextBlock>
-                <TextBox Text="{Binding Client.Address}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Контактное лицо:" Margin="0 0 34 0"></TextBlock>
-                <TextBox Width="400" Margin="0 0 5 0" Text="{Binding Client.Contacts}"></TextBox>
-                <TextBlock Text="Email:" Margin="0 0 5 0"></TextBlock>
-                <TextBox Text="{Binding Client.Email}"></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5">
-                <TextBlock Text="Номер телефона:" Margin="0 0 35 0"></TextBlock>
-                <TextBox Text="{Binding Client.PhoneNumber}"></TextBox>
-            </DockPanel>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Client.Name}" Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBlock Text="Адрес организации:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Client.Address}" Grid.Row="1" Grid.Column="1"></TextBox>
+            </Grid>
         </StackPanel>
 
-        <DockPanel Grid.Row="1" LastChildFill="True">
+        <StackPanel Grid.Row="1" Width="450" HorizontalAlignment="Left">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35*"></ColumnDefinition>
+                    <ColumnDefinition Width="65*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Контактная информация:" Margin="0 0 0 15"></TextBlock>
+                <TextBlock Text="Контактное лицо:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialContacts}" Text="{Binding Client.Contacts}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBlock Text="Номер телефона:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialPhoneNumber}" Text="{Binding Client.PhoneNumber}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBlock Text="Email:" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialEmail}" Text="{Binding Client.Email}" Grid.Row="3" Grid.Column="1"></TextBox>
+            </Grid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="2" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
             <Label></Label>

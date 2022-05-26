@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
-        Title="Добавление и изменение товаров в категории" Height="450" Width="800"
+        Title="Добавление и изменение товаров в категории" Height="350" Width="600"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
@@ -13,15 +13,15 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="85*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
             <Grid Margin="5 10 5 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"></ColumnDefinition>
-                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="75*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -30,13 +30,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите название товара:"></TextBlock>
-                <TextBox Margin="0 0 0 5" Text="{Binding Equipment.Name}" Grid.Row="0" Grid.Column="1" MinWidth="500" MaxWidth="700" HorizontalAlignment="Left"></TextBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Equipment.Name}" Grid.Row="0" Grid.Column="1"></TextBox>
                 <TextBlock Text="Выберите категорию:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <ComboBox Margin="0 0 0 5" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
                 <TextBlock Text="Описание:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Margin="0 0 0 5" Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
                 <TextBlock Text="Единица измерения:" Grid.Row="3" Grid.Column="0"></TextBlock>
-                <ComboBox Margin="0 0 0 5" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
+                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
             </Grid>
         </StackPanel>
         <DockPanel Grid.Row="1" LastChildFill="True">
