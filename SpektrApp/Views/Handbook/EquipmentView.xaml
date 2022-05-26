@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Оборудование" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -20,7 +21,13 @@
         <StackPanel Grid.Row="0">
             <DockPanel Margin="5">
                 <TextBlock Text="Выберите категорию оборудования" Margin="0 0 10 0"></TextBlock>
-                <ComboBox ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name"></ComboBox>
+                <ComboBox x:Name="EquipmentCategoryComboBox" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=EquipmentCategoryComboBox}">
+                            <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}"></behaviors:InvokeCommandAction>
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </ComboBox>
             </DockPanel>
             <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EquipmentList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEquipment}">
                 <DataGrid.Columns>
