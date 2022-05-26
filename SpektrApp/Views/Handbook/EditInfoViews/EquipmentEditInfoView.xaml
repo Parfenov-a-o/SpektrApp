@@ -6,7 +6,42 @@
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
         Title="EquipmentEditInfoView" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Введите название товара:"></TextBlock>
+                <TextBox Text="{Binding Equipment.Name}" Grid.Row="0" Grid.Column="1" MinWidth="500" MaxWidth="700" HorizontalAlignment="Left"></TextBox>
+                <TextBlock Text="Выберите категорию:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <ComboBox  ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <TextBlock Text="Описание:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBlock Text="Единица измерения:" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <ComboBox  ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
+            </Grid>
+        </StackPanel>
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
     </Grid>
 </Window>
