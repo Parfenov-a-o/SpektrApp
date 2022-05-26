@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
-        Title="EmployeePositionEditInfoView" Height="450" Width="800">
+        Title="Добавление и изменения должностей сотрудников" Height="200" Width="500"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
     </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="75*"></RowDefinition>
+            <RowDefinition Height="25*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">

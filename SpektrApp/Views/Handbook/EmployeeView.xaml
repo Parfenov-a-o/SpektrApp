@@ -21,11 +21,13 @@
             <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EmployeeList, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEmployee}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="ФИО" Width="20*" Binding="{Binding FullName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Фамилия" Width="10*" Binding="{Binding Surname}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Имя" Width="10*" Binding="{Binding FirstName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Отчество" Width="15*" Binding="{Binding Patronymic}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Пол" Width="10*" Binding="{Binding Gender}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Дата рождения" Width="15*" Binding="{Binding DateOfBirth}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Мобильный телефон" Width="20*" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Email" Width="15*" Binding="{Binding Email}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Телефон" Width="10*" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Email" Width="10*" Binding="{Binding Email}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Должность" Width="15*" Binding="{Binding EmployeePosition.Name}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

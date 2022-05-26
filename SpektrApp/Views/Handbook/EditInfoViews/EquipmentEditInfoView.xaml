@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Handbook.EditInfoViews"
         mc:Ignorable="d"
-        Title="EquipmentEditInfoView" Height="450" Width="800">
+        Title="Добавление и изменение товаров в категории" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
     </Window.Resources>
@@ -29,13 +30,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите название товара:"></TextBlock>
-                <TextBox Text="{Binding Equipment.Name}" Grid.Row="0" Grid.Column="1" MinWidth="500" MaxWidth="700" HorizontalAlignment="Left"></TextBox>
+                <TextBox Margin="0 0 0 5" Text="{Binding Equipment.Name}" Grid.Row="0" Grid.Column="1" MinWidth="500" MaxWidth="700" HorizontalAlignment="Left"></TextBox>
                 <TextBlock Text="Выберите категорию:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <ComboBox  ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <ComboBox Margin="0 0 0 5" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
                 <TextBlock Text="Описание:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Margin="0 0 0 5" Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
                 <TextBlock Text="Единица измерения:" Grid.Row="3" Grid.Column="0"></TextBlock>
-                <ComboBox  ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
+                <ComboBox Margin="0 0 0 5" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
             </Grid>
         </StackPanel>
         <DockPanel Grid.Row="1" LastChildFill="True">
