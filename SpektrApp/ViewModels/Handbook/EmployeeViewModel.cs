@@ -43,7 +43,100 @@ namespace SpektrApp.ViewModels.Handbook
             _employeeList = db.Employees.Local.ToBindingList();
             _employeePositionList = db.EmployeePositions.Local.ToBindingList();
         }
-        
+
+
+
+        //Команда для добавления
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ??
+                  (addCommand = new RelayCommand((o) =>
+                  {
+
+
+                      EmployeeEditInfoViewModel emplvm = new EmployeeEditInfoViewModel(new Employee());
+
+                      EmployeeEditInfoView view = new EmployeeEditInfoView(emplvm);
+
+                      if (view.ShowDialog() == true)
+                      {
+                          Employee employee = emplvm.Employee;
+                          employee.EmployeePositionId = emplvm.SelectedEmployeePosition.Id;
+                          db.Employees.Add(employee);
+                          db.SaveChanges();
+                      }
+
+
+                  }));
+            }
+        }
+
+
+        //Команда для редактирования
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return editCommand ??
+                  (editCommand = new RelayCommand((selectedItem) =>
+                  {
+                      //Если принимаемый командой параметр пуст
+                      if (selectedItem == null)
+                      {
+                          MessageBox.Show("Вы не выбрали запись для редактирования!");
+                          return;
+                      }
+                      // получаем выделенный объект
+                      Employee employee = selectedItem as Employee;
+
+                      EmployeeEditInfoViewModel emplvm = new EmployeeEditInfoViewModel(new Employee()
+                      {
+                          Id = employee.Id,
+                          Surname = employee.Surname,
+                          FirstName = employee.FirstName,
+                          DateOfBirth = employee.DateOfBirth,
+                          EmployeePosition = employee.EmployeePosition,
+                          Gender = employee.Gender,
+                          EmployeePositionId = employee.EmployeePositionId,
+                          Patronymic = employee.Patronymic,
+                          CompletedProjects = employee.CompletedProjects,
+                          Email = employee.Email,
+                          MaintainedObjects = employee.MaintainedObjects,
+                          PhoneNumber = employee.PhoneNumber,
+
+                      });
+
+                      EmployeeEditInfoView view = new EmployeeEditInfoView(emplvm);
+
+                      if (view.ShowDialog() == true)
+                      {
+                          employee = db.Employees.Find((object)emplvm.Employee.Id);
+                          if (employee != null)
+                          {
+                              employee.Id = emplvm.Employee.Id;
+                              employee.Surname = emplvm.Employee.Surname;
+                              employee.FirstName = emplvm.Employee.FirstName;
+                              employee.DateOfBirth = emplvm.Employee.DateOfBirth;
+                              employee.EmployeePosition = emplvm.SelectedEmployeePosition;
+                              employee.Gender = emplvm.Employee.Gender;
+                              employee.EmployeePositionId = emplvm.SelectedEmployeePosition.Id;
+                              employee.Patronymic = emplvm.Employee.Patronymic;
+                              employee.CompletedProjects = emplvm.Employee.CompletedProjects;
+                              employee.Email = emplvm.Employee.Email;
+                              employee.MaintainedObjects = emplvm.Employee.MaintainedObjects;
+                              employee.PhoneNumber = emplvm.Employee.PhoneNumber;
+
+                              db.Entry(employee).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                              db.SaveChanges();
+                          }
+                      }
+                  }));
+            }
+        }
+
+
 
     }
 }

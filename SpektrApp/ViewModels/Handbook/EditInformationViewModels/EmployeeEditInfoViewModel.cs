@@ -17,6 +17,7 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
             "Мужской","Женский"
         };
 
+
         public Employee Employee
         {
             get { return _employee; }
@@ -41,14 +42,18 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
         }
 
 
+
         public EmployeeEditInfoViewModel(Employee empl)
         {
             _employee = empl;
-
             db = new ApplicationContext();
-            //db.EmployeePositions.ToList();
             _employeePositionList = db.EmployeePositions.ToList();
-            _selectedEmployeePosition = empl.EmployeePosition;
+            if(empl.Id != 0)
+            {
+                _selectedEmployeePosition = db.EmployeePositions.Find(empl.EmployeePosition.Id);
+            }
+          
+
         }
     }
 }

@@ -24,7 +24,7 @@
                 <ComboBox x:Name="EquipmentCategoryComboBox" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name">
                     <behaviors:Interaction.Triggers>
                         <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=EquipmentCategoryComboBox}">
-                            <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}"></behaviors:InvokeCommandAction>
+                            <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}" />
                         </behaviors:EventTrigger>
                     </behaviors:Interaction.Triggers>
                 </ComboBox>

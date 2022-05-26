@@ -22,6 +22,18 @@
                 <TextBox Text="{Binding Employee.Name}"></TextBox>
             </DockPanel>
             <DockPanel Margin="5">
+                <TextBlock Text="Введите фамилию:" Margin="0 0 35 0"></TextBlock>
+                <TextBox Text="{Binding Employee.Surname}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <TextBlock Text="Введите имя:" Margin="0 0 35 0"></TextBlock>
+                <TextBox Text="{Binding Employee.FirstName}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
+                <TextBlock Text="Введите отчество:" Margin="0 0 35 0"></TextBlock>
+                <TextBox Text="{Binding Employee.Patronymic}"></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5">
                 <TextBlock Text="Выберите должность:" Margin="0 0 35 0"></TextBlock>
                 <ComboBox ItemsSource="{Binding EmployeePositionList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEmployeePosition}"></ComboBox>
             </DockPanel>
