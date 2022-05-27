@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SpektrApp.Views.Handbook;
 using SpektrApp.Views.AddService.AddCompletedProject;
+using SpektrApp.Views.AddService.AddServiceCompletedProject;
+
 
 namespace SpektrApp
 {
@@ -84,6 +86,16 @@ namespace SpektrApp
             if (view.ShowDialog() == true)
             {
                 //AddCompletedProjectMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void AddMaintainedCompletedProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //AddMaintainedCompletedProjectMenuItem.IsEnabled = false;
+            AddCompletedProjectView view = new AddCompletedProjectView();
+            if (view.ShowDialog() == true)
+            {
+                //AddMaintainedCompletedProjectMenuItem.IsEnabled = true;
             }
         }
     }

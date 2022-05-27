@@ -16,7 +16,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Добавить заказ">
                 <MenuItem x:Name="AddCompletedProjectMenuItem" Header="Добавить монтаж" Click="AddCompletedProjectMenuItem_Click"></MenuItem>
-                <MenuItem Header="Добавить обслуживание"></MenuItem>
+                <MenuItem x:Name="AddMaintainedCompletedProjectMenuItem" Header="Добавить обслуживание" Click="AddMaintainedCompletedProjectMenuItem_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справочники">
                 <MenuItem x:Name="ClientMenuItem" Header="Клиенты" Click="ClientMenuItem_Click"></MenuItem>
