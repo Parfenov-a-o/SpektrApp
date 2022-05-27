@@ -30,8 +30,8 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                         <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                        <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
-                        <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2"></Button>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingClientName}"></TextBox>
+                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2" Command="{Binding SearchClientCommand}"></Button>
                         <TextBlock Text="Список клиентов:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
                 </Grid>
             </StackPanel>

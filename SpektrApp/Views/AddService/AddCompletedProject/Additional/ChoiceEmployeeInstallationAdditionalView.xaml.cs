@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.AddService.AddCompletedProject.Additional;
 
 namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
 {
@@ -22,6 +23,7 @@ namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
         public ChoiceEmployeeInstallationAdditionalView()
         {
             InitializeComponent();
+            this.DataContext = new ChooseEmployeesViewModel();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

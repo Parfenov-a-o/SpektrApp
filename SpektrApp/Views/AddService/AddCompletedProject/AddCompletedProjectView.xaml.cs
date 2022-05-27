@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.AddService;
 
 namespace SpektrApp.Views.AddService.AddCompletedProject
 {
@@ -22,6 +23,8 @@ namespace SpektrApp.Views.AddService.AddCompletedProject
         public AddCompletedProjectView()
         {
             InitializeComponent();
+
+            this.DataContext = new AddCompletedProjectViewModel();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

@@ -61,7 +61,9 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         public ChooseEmployeesViewModel()
         {
             db = new ApplicationContext();
+            _searchingEmployeeName = "";
             _allEmployeeList = db.Employees.ToList();
+            db.EmployeePositions.ToList();
             _availableEmployeeList = _allEmployeeList.OrderBy(e=>e.FullName);
             _selectedEmployeeList = new List<Employee>();
         }
@@ -75,7 +77,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                 return _searchEmployeeCommand ??
                   (_searchEmployeeCommand = new RelayCommand((o) =>
                   {
-                      if((string)o == String.Empty)
+                      if(SearchingEmployeeName == "")
                       {
                           AvailableEmployeeList = AllEmployeeList;
                           return;
@@ -107,7 +109,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       // получаем выделенный объект
                       Employee employee = selectedItem as Employee;
 
-                      List<Employee> _selectedEmplList = new List<Employee>();
+                      List<Employee> _selectedEmplList = SelectedEmployeeList.ToList() ;
                       _selectedEmplList.Add(employee);
                       SelectedEmployeeList = _selectedEmplList;
                       List<Employee> _availableEmplList2 = AvailableEmployeeList.ToList();
@@ -139,7 +141,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       // получаем выделенный объект
                       //Employee employee = selectedItem as Employee;
 
-                      List<Employee> _selectedEmplList = new List<Employee>();
+                      List<Employee> _selectedEmplList = SelectedEmployeeList.ToList();
                       _selectedEmplList.AddRange(AvailableEmployeeList);
                       SelectedEmployeeList = _selectedEmplList;
                       List<Employee> _allEmplList = AllEmployeeList.ToList();
@@ -151,7 +153,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       //List<Employee> _availableEmplList2 = AvailableEmployeeList.ToList();
                       //_availableEmplList2.Clear();
                       //AvailableEmployeeList = _availableEmplList2;
-                      AvailableEmployeeList.ToList().Clear();
+                      AvailableEmployeeList = new List<Employee>();
                       //List<Employee> _allEmplList = AllEmployeeList.ToList();
                       
                       //_allEmplList.Re
@@ -186,6 +188,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       List<Employee> _allEmplList = AllEmployeeList.ToList();
                       _allEmplList.Add(employee);
                       AllEmployeeList = _allEmplList.OrderBy(e=>e.FullName);
+                      AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
 
 
                   }));
@@ -208,11 +211,12 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       List<Employee> _allEmplList = AllEmployeeList.ToList();
                       foreach (var empl in SelectedEmployeeList)
                       {
-                          _allEmplList.Remove(empl);
+                          _allEmplList.Add(empl);
                       }
                       AllEmployeeList = _allEmplList;
-
-                      SelectedEmployeeList.ToList().Clear();
+                      AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
+                      
+                      SelectedEmployeeList = new List<Employee>();
 
 
                   }));

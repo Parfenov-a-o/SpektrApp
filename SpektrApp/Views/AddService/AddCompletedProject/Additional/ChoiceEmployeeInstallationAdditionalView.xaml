@@ -30,29 +30,29 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
-                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2"></Button>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}"></TextBox>
+                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2" Command="{Binding SearchEmployeeCommand}"></Button>
             </Grid>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Width="350">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="AvailableEmployeeListDataGrid"  MaxHeight="500" MinHeight="100" ItemsSource="{Binding AvailableEmployeeList}" SelectedItem="{Binding SelectedEmployee}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Width="150" Margin="0" Content="Всех из 1 во 2"></Button>
-            <Button Width="150" Margin="0" Content="Всех из 2 во 1"></Button>
-            <Button Width="150" Margin="0" Content="Выбранного из 1 во 2"></Button>
-            <Button Width="150" Margin="0" Content="Выбранного из 2 во 1"></Button>
+            <Button Width="150" Margin="0" Content="Всех из 1 во 2" Command="{Binding AddAllEmployeesCommand}"></Button>
+            <Button Width="150" Margin="0" Content="Всех из 2 во 1" Command="{Binding RemoveAllEmployeesCommand}"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 1 во 2" Command="{Binding AddSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=AvailableEmployeeListDataGrid,Path=SelectedItem}"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 2 во 1" Command="{Binding RemoveSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=SelectedEmployeeListDataGrid,Path=SelectedItem}"></Button>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid x:Name="SelectedEmployeeListDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding SelectedEmployeeList}" SelectedItem="{Binding SelectedEmployeeInSelectedBox}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

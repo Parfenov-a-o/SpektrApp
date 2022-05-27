@@ -5,19 +5,44 @@ using System.Text;
 using System.Threading.Tasks;
 using SpektrApp.Models;
 using System.Windows;
+using SpektrApp.Views.AddService.AddCompletedProject.Additional;
+using SpektrApp.ViewModels.AddService.AddCompletedProject.Additional;
 
 namespace SpektrApp.ViewModels.AddService
 {
     internal class AddCompletedProjectViewModel:BaseViewModel
     {
         private CompletedProject _completedProject;
+        
         private RelayCommand _addCommand;
-
+        private RelayCommand _showSearchClientViewCommand;
+        private RelayCommand _showChooseEmployeesViewCommand;
+        private IEnumerable<Client> _clientList;
+        
         public CompletedProject CompletedProject
         {
             get { return _completedProject; }
             set { _completedProject = value; OnPropertyChanged(nameof(CompletedProject)); }
         }
+
+        public IEnumerable<Client> ClientList
+        {
+            get { return _clientList; }
+            set { _clientList = value; OnPropertyChanged(nameof(ClientList)); }
+        }
+
+        
+
+        public AddCompletedProjectViewModel()
+        {
+            db = new ApplicationContext();
+
+            _completedProject = new CompletedProject();
+
+            _clientList = db.Clients.ToList();
+        }
+
+
 
         //Команда для добавления
         public RelayCommand AddCommand
@@ -35,6 +60,57 @@ namespace SpektrApp.ViewModels.AddService
                       MessageBox.Show("Проект успешно добавлен!");
 
                       
+                  }));
+            }
+        }
+
+
+        public RelayCommand ShowSearchClientViewCommand
+        {
+            get
+            {
+                return _showSearchClientViewCommand ??
+                  (_showSearchClientViewCommand = new RelayCommand((o) =>
+                  {
+
+                      SearchClientViewModel viewModel = new SearchClientViewModel();
+
+                      SearchClientAdditionalView view = new SearchClientAdditionalView(viewModel);
+                      
+                      if(view.ShowDialog()==true)
+                      {
+
+                          //SelectedClient = viewModel.SelectedClient;
+                          //MessageBox.Show(viewModel.SelectedClient.Name);
+                          CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id); 
+                      }
+
+
+                  }));
+            }
+        }
+
+        public RelayCommand ShowChooseEmployeesViewCommand
+        {
+            get
+            {
+                return _showChooseEmployeesViewCommand ??
+                  (_showChooseEmployeesViewCommand = new RelayCommand((o) =>
+                  {
+                      ChooseEmployeesViewModel viewModel = new ChooseEmployeesViewModel();
+
+                      ChoiceEmployeeInstallationAdditionalView view = new ChoiceEmployeeInstallationAdditionalView();
+
+                      if (view.ShowDialog() == true)
+                      {
+                          //Доделать
+
+                          //SelectedClient = viewModel.SelectedClient;
+                          //MessageBox.Show(viewModel.SelectedClient.Name);
+                          //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);
+                      }
+
+
                   }));
             }
         }
