@@ -7,6 +7,9 @@ using SpektrApp.Models;
 using System.Windows;
 using SpektrApp.Views.AddService.AddCompletedProject.Additional;
 using SpektrApp.ViewModels.AddService.AddCompletedProject.Additional;
+using SpektrApp.ViewModels.Handbook.EditInformationViewModels;
+using SpektrApp.Views.Handbook.EditInfoViews;
+
 
 namespace SpektrApp.ViewModels.AddService
 {
@@ -17,6 +20,7 @@ namespace SpektrApp.ViewModels.AddService
         private RelayCommand _addCommand;
         private RelayCommand _showSearchClientViewCommand;
         private RelayCommand _showChooseEmployeesViewCommand;
+        private RelayCommand _addNewClientCommand;
         private IEnumerable<Client> _clientList;
         
         public CompletedProject CompletedProject
@@ -109,6 +113,34 @@ namespace SpektrApp.ViewModels.AddService
                           //MessageBox.Show(viewModel.SelectedClient.Name);
                           //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);
                       }
+
+
+                  }));
+            }
+        }
+
+        public RelayCommand AddNewClientCommand
+        {
+            get
+            {
+                return _addNewClientCommand ??
+                  (_addNewClientCommand = new RelayCommand((o) =>
+                  {
+
+                      ClientEditInfoViewModel clvm = new ClientEditInfoViewModel(new Client());
+
+                      ClientEditInfoView view = new ClientEditInfoView(clvm);
+
+                      if (view.ShowDialog() == true)
+                      {
+                          Client client = clvm.Client;
+                          db.Clients.Add(client);
+                          db.SaveChanges();
+
+                          ClientList = db.Clients.ToList();
+                          CompletedProject.Client = client;
+                      }
+
 
 
                   }));

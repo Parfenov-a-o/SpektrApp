@@ -37,7 +37,7 @@
                 <DatePicker Style="{StaticResource SpecialDateOfBirthDate}" SelectedDate="{Binding CompletedProject.ProjectCompletionDate}" Grid.Row="0" Grid.Column="1"></DatePicker>
                 <TextBlock Text="Выберите клиента:" Grid.Row="1" Grid.Column="0"></TextBlock>
                 <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource ="{Binding ClientList}" DisplayMemberPath="Name" SelectedItem ="{Binding CompletedProject.Client}"></ComboBox>
-                <Button Width="110" Content="Добавить клиента" Grid.Row="0" Grid.Column="2"></Button>
+                <Button Width="110" Content="Добавить клиента" Grid.Row="0" Grid.Column="2" Command="{Binding AddNewClientCommand}"></Button>
                 <Button Width="40" Content="Точки" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5" Command="{Binding ShowSearchClientViewCommand}" ></Button>
                 <StackPanel Grid.Row="2" Grid.Column="0">
                     <TextBlock Text="Выбрать  оборудование:"></TextBlock>

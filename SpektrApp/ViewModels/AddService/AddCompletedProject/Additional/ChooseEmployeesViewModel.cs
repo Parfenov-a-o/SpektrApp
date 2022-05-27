@@ -15,6 +15,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         private RelayCommand _addAllEmployeesCommand;
         private RelayCommand _removeSelectedEmployeeCommand;
         private RelayCommand _removeAllEmployeesCommand;
+        
 
         private IEnumerable<Employee> _availableEmployeeList;
         private IEnumerable<Employee> _selectedEmployeeList;
@@ -222,6 +223,9 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                   }));
             }
         }
+
+
+
 
 
 
