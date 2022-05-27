@@ -1,0 +1,64 @@
+﻿<Window x:Class="SpektrApp.Views.AddService.AddCompletedProject.Additional.InstallationEquipmentAdditionalView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
+        mc:Ignorable="d"
+        Title="Устанавливаемое оборудование" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="45*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Выбрать категорию:" Grid.Row="0" Grid.Column="0"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <TextBlock Text="Список устанавливаемого оборудования:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <TextBlock Text="Единица измерения:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="2" Grid.Column="1"></ComboBox>
+                <TextBlock Text="Укажите количество:" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="3" Grid.Column="1"></TextBox>
+                <Button Width="200" Margin="0" Content="Добавить оборудование" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Button>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Width="750">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="50*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Категория" Width="30*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Количество" Width="15*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="2" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
+    </Grid>
+</Window>

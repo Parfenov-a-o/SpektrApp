@@ -22,4 +22,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\AddService\AddMaintainedCompletedProject\AdditionalMaintained\" />
+  </ItemGroup>
+
 </Project>

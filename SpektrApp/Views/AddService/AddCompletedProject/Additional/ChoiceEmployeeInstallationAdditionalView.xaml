@@ -1,0 +1,66 @@
+﻿<Window x:Class="SpektrApp.Views.AddService.AddCompletedProject.Additional.ChoiceEmployeeInstallationAdditionalView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
+        mc:Ignorable="d"
+        Title="Выбор сотрудников выполняющих монтаж" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                    <ColumnDefinition Width="85*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2"></Button>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Width="350">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Width="150" Margin="0" Content="Всех из 1 во 2"></Button>
+            <Button Width="150" Margin="0" Content="Всех из 2 во 1"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 1 во 2"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 2 во 1"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="3" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
+    </Grid>
+</Window>
