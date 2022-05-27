@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SpektrApp.Views.Handbook;
+using SpektrApp.Views.AddService.AddCompletedProject;
 
 namespace SpektrApp
 {
@@ -73,6 +74,16 @@ namespace SpektrApp
             if (view.ShowDialog() == true)
             {
                 //CategoryEquipmentMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void AddCompletedProjectMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //AddCompletedProjectMenuItem.IsEnabled = false;
+            AddCompletedProjectView view = new AddCompletedProjectView();
+            if (view.ShowDialog() == true)
+            {
+                //AddCompletedProjectMenuItem.IsEnabled = true;
             }
         }
     }

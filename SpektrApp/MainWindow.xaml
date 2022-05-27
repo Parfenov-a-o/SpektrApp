@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Добавить заказ">
-                <MenuItem Header="Добавить монтаж"></MenuItem>
+                <MenuItem x:Name="AddCompletedProjectMenuItem" Header="Добавить монтаж" Click="AddCompletedProjectMenuItem_Click"></MenuItem>
                 <MenuItem Header="Добавить обслуживание"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справочники">
