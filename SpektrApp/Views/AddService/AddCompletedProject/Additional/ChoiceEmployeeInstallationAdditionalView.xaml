@@ -12,8 +12,10 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="85*"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="20*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
@@ -33,7 +35,27 @@
             </Grid>
         </StackPanel>
 
-        <DockPanel Grid.Row="1" LastChildFill="True">
+        <StackPanel Grid.Row="1" Width="350">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия сотрудника" Width="5*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Width="150" Margin="0" Content="Всех из 1 во 2"></Button>
+            <Button Width="150" Margin="0" Content="Всех из 2 во 1"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 1 во 2"></Button>
+            <Button Width="150" Margin="0" Content="Выбранного из 2 во 1"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
+            <DataGrid MaxHeight="500" MinHeight="100">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Фамилия сотрудника" Width="5*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="3" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
             <Label></Label>
