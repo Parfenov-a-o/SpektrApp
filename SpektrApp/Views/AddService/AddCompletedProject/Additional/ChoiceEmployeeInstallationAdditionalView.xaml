@@ -38,7 +38,8 @@
         <StackPanel Grid.Row="1" Width="350">
             <DataGrid MaxHeight="500" MinHeight="100">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Width="150" Margin="0" Content="Всех из 1 во 2"></Button>
@@ -50,7 +51,8 @@
         <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
             <DataGrid MaxHeight="500" MinHeight="100">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Фамилия сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
