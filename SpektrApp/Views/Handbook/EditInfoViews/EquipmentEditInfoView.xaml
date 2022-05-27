@@ -34,7 +34,7 @@
                 <TextBlock Text="Выберите категорию:" Grid.Row="1" Grid.Column="0"></TextBlock>
                 <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
                 <TextBlock Text="Описание:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Equipment.Description}" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap"></TextBox>
                 <TextBlock Text="Единица измерения:" Grid.Row="3" Grid.Column="0"></TextBlock>
                 <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="3" Grid.Column="1"></ComboBox>
             </Grid>
