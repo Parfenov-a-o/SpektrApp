@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SpektrApp.Views.Handbook;
 using SpektrApp.Views.AddService.AddCompletedProject;
-using SpektrApp.Views.AddService.AddServiceCompletedProject;
+using SpektrApp.Views.AddService.AddMaintainedCompletedProject;
 
 
 namespace SpektrApp

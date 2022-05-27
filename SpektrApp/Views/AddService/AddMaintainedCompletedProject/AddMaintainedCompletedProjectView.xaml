@@ -1,9 +1,9 @@
-﻿<Window x:Class="SpektrApp.Views.AddService.AddServiceCompletedProject.AddServiceCompletedProjectView"
+﻿<Window x:Class="SpektrApp.Views.AddService.AddMaintainedCompletedProject.AddMaintainedCompletedProjectView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddServiceCompletedProject"
+        xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddMaintainedCompletedProject"
         mc:Ignorable="d"
         Title="Добавление обслуживания" Height="550" Width="800"
         WindowStartupLocation="CenterScreen">

@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SpektrApp.Views.AddService.AddServiceCompletedProject
+namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject
 {
     /// <summary>
     /// Логика взаимодействия для AddServiceCompletedProjectView.xaml
     /// </summary>
-    public partial class AddServiceCompletedProjectView : Window
+    public partial class AddMaintainedCompletedProjectView : Window
     {
-        public AddServiceCompletedProjectView()
+        public AddMaintainedCompletedProjectView()
         {
             InitializeComponent();
         }
