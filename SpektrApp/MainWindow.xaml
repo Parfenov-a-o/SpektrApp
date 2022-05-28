@@ -28,6 +28,11 @@
             <MenuItem Header="Отчеты">
                 <MenuItem Header="Монтажные проекты"></MenuItem>
                 <MenuItem Header="Обслуживаемые объекты"></MenuItem>
+                <MenuItem Header="Карточки клиентов"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Информация о пользователях">
+                <MenuItem x:Name="UserMenuItem" Header="Пользователи" Click="UserMenuItem_Click"></MenuItem>
+                <MenuItem x:Name="UserRoleMenuItem" Header="Роли пользователей" Click="UserRoleMenuItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
     </Grid>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
         mc:Ignorable="d"
-        Title="Устанавливаемое оборудование" Height="450" Width="800"
+        Title="Устанавливаемое оборудование" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
@@ -21,9 +21,9 @@
         <StackPanel Grid.Row="0">
             <Grid Margin="5 10 5 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"></ColumnDefinition>
+                    <ColumnDefinition Width="35*"></ColumnDefinition>
                     <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="60*"></ColumnDefinition>
+                    <ColumnDefinition Width="55*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -44,7 +44,7 @@
             </Grid>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Width="750">
+        <StackPanel Grid.Row="1" Width="650">
             <DataGrid MaxHeight="500" MinHeight="100">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>

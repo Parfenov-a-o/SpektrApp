@@ -5,8 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.InfoUser.Additional"
         mc:Ignorable="d"
-        Title="UserEditInfoView" Height="450" Width="800">
+        Title="Добавление и изменение данных пользователей" Height="250" Width="500"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*"></RowDefinition>
+            <RowDefinition Height="25*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
+                    <ColumnDefinition Width="80*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Введите логин:" Grid.Row="0" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBlock Text="Введите пароль:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBlock Text="Введите роль:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
+            </Grid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
     </Grid>
 </Window>

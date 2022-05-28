@@ -23,5 +23,15 @@ namespace SpektrApp.Views.InfoUser
         {
             InitializeComponent();
         }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
