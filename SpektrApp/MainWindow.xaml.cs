@@ -16,7 +16,6 @@ using SpektrApp.Views.Handbook;
 using SpektrApp.Views.AddService.AddCompletedProject;
 using SpektrApp.Views.AddService.AddMaintainedCompletedProject;
 
-
 namespace SpektrApp
 {
     /// <summary>
@@ -92,7 +91,7 @@ namespace SpektrApp
         private void AddMaintainedCompletedProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             //AddMaintainedCompletedProjectMenuItem.IsEnabled = false;
-            AddCompletedProjectView view = new AddCompletedProjectView();
+            AddMaintainedCompletedProjectView view = new AddMaintainedCompletedProjectView();
             if (view.ShowDialog() == true)
             {
                 //AddMaintainedCompletedProjectMenuItem.IsEnabled = true;
