@@ -47,17 +47,17 @@
                 <TextBox Style="{StaticResource SpecialComboBox}" Text="{Binding SelectedEquipment.Units}" Grid.Row="2" Grid.Column="1"></TextBox>
                 <TextBlock Text="Укажите количество:" Grid.Row="3" Grid.Column="0"></TextBlock>
                 <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Count}" Grid.Row="3" Grid.Column="1"></TextBox>
-                <Button Width="200" Margin="0" Content="Добавить оборудование" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Button>
+                <Button Width="200" Margin="0" Content="Добавить оборудование" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Command="{Binding AddInBasketCommand}"></Button>
             </Grid>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Width="750">
-            <DataGrid MaxHeight="500" MinHeight="100">
+            <DataGrid MaxHeight="500" MinHeight="100" ItemsSource="{Binding InstalledEquipmentList}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Наименование" Width="50*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Категория" Width="30*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Количество" Width="15*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Binding="{Binding IndexNumber}" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Equipment.Name}" Width="50*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Категория" Binding="{Binding Equipment.EquipmentCategory.Name}" Width="30*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="15*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

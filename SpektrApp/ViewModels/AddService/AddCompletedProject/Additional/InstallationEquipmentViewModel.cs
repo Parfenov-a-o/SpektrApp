@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpektrApp.Models;
+using System.Windows;
 
 namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
 {
@@ -56,6 +57,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         {
             db = new ApplicationContext();
             _equipmentCategoryList = db.EquipmentCategories.ToList();
+            _installedEquipmentList = new List<InstalledEquipment>();
             db.Equipments.ToList();
         }
 
@@ -82,6 +84,43 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                   }));
             }
         }
+
+        public RelayCommand AddInBasketCommand
+        {
+            get
+            {
+                return _addInBasketCommand ??
+                  (_addInBasketCommand = new RelayCommand((selectedItem) =>
+                  {
+
+                      if(SelectedEquipment==null)
+                      {
+                          MessageBox.Show("Вы не выбрали оборудование!");
+                      }
+
+                      List<InstalledEquipment> _installedEquipmentList = InstalledEquipmentList.ToList();
+
+                      if(_installedEquipmentList.Where(i=>i.EquipmentId == SelectedEquipment.Id).Count()>0)
+                      {
+                          _installedEquipmentList.Find(i => i.EquipmentId == SelectedEquipment.Id).Count += Count;
+                      }
+                      else
+                      {
+                          InstalledEquipment _installedEquipment = new InstalledEquipment()
+                          {
+                              IndexNumber = InstalledEquipmentList.Count() + 1,
+                              Equipment = SelectedEquipment,
+                              EquipmentId = SelectedEquipment.Id,
+                              Count = Count,
+
+                          };
+                          _installedEquipmentList.Add(_installedEquipment);
+                      }
+                      InstalledEquipmentList = _installedEquipmentList;
+                  }));
+            }
+        }
+
 
 
 
