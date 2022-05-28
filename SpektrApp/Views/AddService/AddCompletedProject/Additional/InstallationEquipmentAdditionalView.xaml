@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Устанавливаемое оборудование" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -33,13 +34,19 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Выбрать категорию:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <ComboBox x:Name="EquipmentCategoryComboBox" Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" SelectedItem="{Binding SelectedEquipmentCategory}">
+                    <behaviors:Interaction.Triggers>
+                        <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=EquipmentCategoryComboBox}">
+                            <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}" />
+                        </behaviors:EventTrigger>
+                    </behaviors:Interaction.Triggers>
+                </ComboBox>
                 <TextBlock Text="Список устанавливаемого оборудования:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEquipmentCategory}"></ComboBox>
+                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding AvailableEquipmentList}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedEquipment}"></ComboBox>
                 <TextBlock Text="Единица измерения:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" ItemsSource="{Binding UnitsList}" DisplayMemberPath="Name" SelectedItem="{Binding Equipment.Units}" Grid.Row="2" Grid.Column="1"></ComboBox>
+                <TextBox Style="{StaticResource SpecialComboBox}" Text="{Binding SelectedEquipment.Units}" Grid.Row="2" Grid.Column="1"></TextBox>
                 <TextBlock Text="Укажите количество:" Grid.Row="3" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="3" Grid.Column="1"></TextBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Text="{Binding Count}" Grid.Row="3" Grid.Column="1"></TextBox>
                 <Button Width="200" Margin="0" Content="Добавить оборудование" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left"></Button>
             </Grid>
         </StackPanel>

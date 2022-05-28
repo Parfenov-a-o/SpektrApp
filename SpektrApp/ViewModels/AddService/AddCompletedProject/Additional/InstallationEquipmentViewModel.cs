@@ -16,6 +16,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         private double _count;
         private IEnumerable<InstalledEquipment> _installedEquipmentList;
         private RelayCommand _addInBasketCommand;
+        private RelayCommand _filterByCategoryCommand;
 
         public IEnumerable<EquipmentCategory> EquipmentCategoryList
         {
@@ -55,6 +56,31 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         {
             db = new ApplicationContext();
             _equipmentCategoryList = db.EquipmentCategories.ToList();
+            db.Equipments.ToList();
+        }
+
+        //Команда для фильтрации по категории оборудования
+        public RelayCommand FilterByCategoryCommand
+        {
+            get
+            {
+                return _filterByCategoryCommand ??
+                  (_filterByCategoryCommand = new RelayCommand((selectedItem) =>
+                  {
+                      //Если принимаемый командой параметр пуст
+                      if (selectedItem == null)
+                      {
+                          //MessageBox.Show("Вы не выбрали запись для редактирования!");
+                          return;
+                      }
+
+                      EquipmentCategory equipmentCategory = selectedItem as EquipmentCategory;
+
+                      AvailableEquipmentList = db.Equipments.Where(u => u.EquipmentCategoryId == equipmentCategory.Id).ToList();
+
+
+                  }));
+            }
         }
 
 
