@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.AddService.AddCompletedProject.Additional;
 
 namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
 {
@@ -19,9 +20,12 @@ namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
     /// </summary>
     public partial class InstallationEquipmentAdditionalView : Window
     {
-        public InstallationEquipmentAdditionalView()
+        internal InstallationEquipmentAdditionalView(InstallationEquipmentViewModel vm)
         {
             InitializeComponent();
+
+            this.DataContext = vm;
+
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

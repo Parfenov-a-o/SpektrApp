@@ -42,7 +42,7 @@
                 <StackPanel Grid.Row="2" Grid.Column="0">
                     <TextBlock Text="Выбрать  оборудование:"></TextBlock>
                     <DockPanel>
-                        <Button Margin="2" Content="Корзина"></Button>
+                        <Button Margin="2" Content="Корзина" Command="{Binding ShowInstallationEquipmnetViewCommand}"></Button>
                         <Button Margin="2" Content="Индикатор"></Button>
                     </DockPanel>
                 </StackPanel>

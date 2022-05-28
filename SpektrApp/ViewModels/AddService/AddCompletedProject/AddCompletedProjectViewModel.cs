@@ -20,7 +20,9 @@ namespace SpektrApp.ViewModels.AddService
         private RelayCommand _addCommand;
         private RelayCommand _showSearchClientViewCommand;
         private RelayCommand _showChooseEmployeesViewCommand;
+        private RelayCommand _showInstallationEquipmnetViewCommand;
         private RelayCommand _addNewClientCommand;
+
         private IEnumerable<Client> _clientList;
         
         public CompletedProject CompletedProject
@@ -118,6 +120,33 @@ namespace SpektrApp.ViewModels.AddService
                   }));
             }
         }
+
+        public RelayCommand ShowInstallationEquipmnetViewCommand
+        {
+            get
+            {
+                return _showInstallationEquipmnetViewCommand ??
+                  (_showInstallationEquipmnetViewCommand = new RelayCommand((o) =>
+                  {
+                      InstallationEquipmentViewModel viewModel = new InstallationEquipmentViewModel();
+
+                      InstallationEquipmentAdditionalView view = new InstallationEquipmentAdditionalView(viewModel);
+
+
+                      if (view.ShowDialog() == true)
+                      {
+                          //Доделать
+
+                          //SelectedClient = viewModel.SelectedClient;
+                          //MessageBox.Show(viewModel.SelectedClient.Name);
+                          //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);
+                      }
+
+
+                  }));
+            }
+        }
+
 
         public RelayCommand AddNewClientCommand
         {
