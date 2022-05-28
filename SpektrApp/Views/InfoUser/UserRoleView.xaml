@@ -20,7 +20,7 @@
         <StackPanel Grid.Row="0" Margin="10">
             <DataGrid MaxHeight="500" MinHeight="100" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Width="40*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="ID" Width="40*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Роль пользователя" Width="60*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
