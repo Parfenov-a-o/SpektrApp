@@ -60,6 +60,10 @@
                     <DataGridTextColumn Header="Количество" Binding="{Binding Count}" Width="15*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Left">
+                <Button Width="110" Margin="0" Content="Удалить"></Button>
+                <Button Width="110" Content="Очистить корзину"></Button>
+            </DockPanel>
         </StackPanel>
 
         <DockPanel Grid.Row="2" LastChildFill="True">
