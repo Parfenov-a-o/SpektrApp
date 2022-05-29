@@ -18,7 +18,7 @@
             <RowDefinition Height="10*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="45*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
             <ColumnDefinition Width="30*"></ColumnDefinition>
             <ColumnDefinition Width="20*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -26,9 +26,9 @@
         <StackPanel Grid.Row="0" Grid.Column="0">
             <Grid Margin="5 10 5 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="20*"></ColumnDefinition>
                     <ColumnDefinition Width="65*"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="15*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -117,5 +117,8 @@
         <DockPanel Grid.Row="3" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click" HorizontalAlignment="Left"></Button>
         </DockPanel>
+        <Line Grid.Row="0" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="800" Stroke="Black" />
+        <Line Grid.Row="1" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="800" Stroke="Black" />
+        <Line Grid.Row="2" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="30" Stroke="Black" />
     </Grid>
 </Window>
