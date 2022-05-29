@@ -15,7 +15,8 @@ using System.Windows.Shapes;
 using SpektrApp.Views.Handbook;
 using SpektrApp.Views.AddService.AddCompletedProject;
 using SpektrApp.Views.AddService.AddMaintainedCompletedProject;
-
+using SpektrApp.Views.InfoUser;
+using SpektrApp.Views.Reports;
 
 namespace SpektrApp
 {
@@ -92,10 +93,40 @@ namespace SpektrApp
         private void AddMaintainedCompletedProjectMenuItem_Click(object sender, RoutedEventArgs e)
         {
             //AddMaintainedCompletedProjectMenuItem.IsEnabled = false;
-            AddCompletedProjectView view = new AddCompletedProjectView();
+            AddMaintainedCompletedProjectView view = new AddMaintainedCompletedProjectView();
             if (view.ShowDialog() == true)
             {
                 //AddMaintainedCompletedProjectMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void UserMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //UserMenuItem.IsEnabled = false;
+            UserView view = new UserView();
+            if (view.ShowDialog() == true)
+            {
+                //UserMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void UserRoleMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //UserRoleMenuItem.IsEnabled = false;
+            UserRoleView view = new UserRoleView();
+            if (view.ShowDialog() == true)
+            {
+                //UserRoleMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void ClientCardMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //ClientCardMenuItem.IsEnabled = false;
+            ClientCardView view = new ClientCardView();
+            if (view.ShowDialog() == true)
+            {
+                //ClientCardMenuItem.IsEnabled = true;
             }
         }
     }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
         mc:Ignorable="d"
-        Title="Выбор сотрудников выполняющих монтаж" Height="450" Width="800"
+        Title="Выбор сотрудников выполняющих монтаж" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
@@ -21,8 +21,8 @@
         <StackPanel Grid.Row="0">
             <Grid Margin="5 10 5 0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                    <ColumnDefinition Width="85*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="80*"></ColumnDefinition>
                     <ColumnDefinition Width="10*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
