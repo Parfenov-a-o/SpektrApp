@@ -30,6 +30,19 @@ namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
+            //this.Hide();
+
+            //SearchClientViewModel vm = this.DataContext as SearchClientViewModel;
+            //if (vm.SelectedClient != null)
+            //{
+            //    this.DialogResult = true;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Вы не выбрали клиента!");
+            //}
+
+
             this.DialogResult = true;
         }
 

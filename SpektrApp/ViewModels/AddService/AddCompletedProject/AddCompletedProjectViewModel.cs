@@ -37,7 +37,12 @@ namespace SpektrApp.ViewModels.AddService
             set { _clientList = value; OnPropertyChanged(nameof(ClientList)); }
         }
 
-        
+        public InstallationEquipmentViewModel InstEquipVM
+        {
+            get;set;
+        }
+
+
 
         public AddCompletedProjectViewModel()
         {
@@ -46,6 +51,8 @@ namespace SpektrApp.ViewModels.AddService
             _completedProject = new CompletedProject();
 
             _clientList = db.Clients.ToList();
+
+            InstEquipVM = new InstallationEquipmentViewModel();
         }
 
 
@@ -105,15 +112,28 @@ namespace SpektrApp.ViewModels.AddService
                   {
                       ChooseEmployeesViewModel viewModel = new ChooseEmployeesViewModel();
 
-                      ChoiceEmployeeInstallationAdditionalView view = new ChoiceEmployeeInstallationAdditionalView();
+                      viewModel.SelectedEmployeeList = CompletedProject.Employees;
+
+                      List<Employee> _emplList = viewModel.AllEmployeeList.ToList();
+                      List<Employee> _avEmplList = viewModel.AvailableEmployeeList.ToList();
+
+                      foreach (var item in CompletedProject.Employees)
+                      {
+                          _emplList.RemoveAll(e=>e.Id == item.Id);
+                          _avEmplList.RemoveAll(e => e.Id == item.Id);
+                          //_avEmplList.Remove(item);
+
+                          //viewModel.AllEmployeeList.ToList().Remove(item);
+                      }
+
+                      viewModel.AllEmployeeList = _emplList;
+                      viewModel.AvailableEmployeeList = _avEmplList;
+
+                      ChoiceEmployeeInstallationAdditionalView view = new ChoiceEmployeeInstallationAdditionalView(viewModel);
 
                       if (view.ShowDialog() == true)
                       {
-                          //Доделать
-
-                          //SelectedClient = viewModel.SelectedClient;
-                          //MessageBox.Show(viewModel.SelectedClient.Name);
-                          //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);
+                          CompletedProject.Employees = viewModel.SelectedEmployeeList.ToList();
                       }
 
 
@@ -128,18 +148,41 @@ namespace SpektrApp.ViewModels.AddService
                 return _showInstallationEquipmnetViewCommand ??
                   (_showInstallationEquipmnetViewCommand = new RelayCommand((o) =>
                   {
+
                       InstallationEquipmentViewModel viewModel = new InstallationEquipmentViewModel();
 
+                      List <InstalledEquipment> list1 = new List<InstalledEquipment>();
+                      foreach(var item in CompletedProject.InstalledEquipments)
+                      {
+                          list1.Add(new InstalledEquipment()
+                          {
+                              Id = item.Id,
+                              Count = item.Count,
+                              Equipment = item.Equipment,
+                              EquipmentId = item.EquipmentId,
+                              IndexNumber = item.IndexNumber,
+                          });
+                      }
+
+                      viewModel.InstalledEquipmentList = list1;
                       InstallationEquipmentAdditionalView view = new InstallationEquipmentAdditionalView(viewModel);
-
-
                       if (view.ShowDialog() == true)
                       {
-                          //Доделать
+                          List<InstalledEquipment> _installedEquipmentList = new List<InstalledEquipment>();
 
-                          //SelectedClient = viewModel.SelectedClient;
-                          //MessageBox.Show(viewModel.SelectedClient.Name);
-                          //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);
+                          foreach (var item in viewModel.InstalledEquipmentList.ToList())
+                          {
+                              _installedEquipmentList.Add(new InstalledEquipment()
+                              {
+                                  Id = item.Id,
+                                  Count = item.Count,
+                                  Equipment = item.Equipment,
+                                  EquipmentId = item.EquipmentId,
+                                  IndexNumber = item.IndexNumber,
+                              });
+                          }
+
+                          CompletedProject.InstalledEquipments = _installedEquipmentList;
                       }
 
 

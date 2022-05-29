@@ -20,10 +20,10 @@ namespace SpektrApp.Views.AddService.AddCompletedProject.Additional
     /// </summary>
     public partial class ChoiceEmployeeInstallationAdditionalView : Window
     {
-        public ChoiceEmployeeInstallationAdditionalView()
+        internal ChoiceEmployeeInstallationAdditionalView(ChooseEmployeesViewModel vm)
         {
             InitializeComponent();
-            this.DataContext = new ChooseEmployeesViewModel();
+            this.DataContext = vm;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

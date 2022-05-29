@@ -41,6 +41,7 @@
                 <Button Width="40" Content="Точки" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5" Command="{Binding ShowSearchClientViewCommand}" ></Button>
                 <StackPanel Grid.Row="2" Grid.Column="0">
                     <TextBlock Text="Выбрать  оборудование:"></TextBlock>
+                    <DataGrid ItemsSource="{Binding CompletedProject.InstalledEquipments}"></DataGrid>
                     <DockPanel>
                         <Button Margin="2" Content="Корзина" Command="{Binding ShowInstallationEquipmnetViewCommand}"></Button>
                         <Button Margin="2" Content="Индикатор"></Button>
@@ -61,6 +62,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Ответственные за монтаж:" Margin="0 0 0 15"></TextBlock>
+                <DataGrid ItemsSource="{Binding CompletedProject.Employees}"></DataGrid>
                 <TextBlock Text="что то:" Grid.Row="1" Grid.Column="0"></TextBlock>
                 <Button Width="150" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" Command="{Binding ShowChooseEmployeesViewCommand}"></Button>
             </Grid>
