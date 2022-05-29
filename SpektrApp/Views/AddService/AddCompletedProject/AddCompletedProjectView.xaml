@@ -41,7 +41,6 @@
                 <Button Width="40" Content="Точки" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5" Command="{Binding ShowSearchClientViewCommand}" ></Button>
                 <StackPanel Grid.Row="2" Grid.Column="0">
                     <TextBlock Text="Выбрать  оборудование:"></TextBlock>
-                    <DataGrid ItemsSource="{Binding CompletedProject.InstalledEquipments}"></DataGrid>
                     <DockPanel>
                         <Button Margin="2" Content="Корзина" Command="{Binding ShowInstallationEquipmnetViewCommand}"></Button>
                         <Button Margin="2" Content="Индикатор"></Button>
@@ -54,8 +53,8 @@
             <TextBlock Text="Ответственные за монтаж:" Margin="0 0 0 15"></TextBlock>
             <DataGrid ItemsSource="{Binding CompletedProject.Employees}" MinHeight="60" Margin="10 0 0 0" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Width="55*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Роль пользователя" Width="45*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО" Width="55*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность" Width="45*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Width="150" Margin="0 10 0 0" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowChooseEmployeesViewCommand}"></Button>
