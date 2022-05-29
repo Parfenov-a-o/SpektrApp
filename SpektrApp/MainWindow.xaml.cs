@@ -16,6 +16,7 @@ using SpektrApp.Views.Handbook;
 using SpektrApp.Views.AddService.AddCompletedProject;
 using SpektrApp.Views.AddService.AddMaintainedCompletedProject;
 using SpektrApp.Views.InfoUser;
+using SpektrApp.Views.Reports;
 
 namespace SpektrApp
 {
@@ -116,6 +117,16 @@ namespace SpektrApp
             if (view.ShowDialog() == true)
             {
                 //UserRoleMenuItem.IsEnabled = true;
+            }
+        }
+
+        private void ClientCardMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //ClientCardMenuItem.IsEnabled = false;
+            ClientCardView view = new ClientCardView();
+            if (view.ShowDialog() == true)
+            {
+                //ClientCardMenuItem.IsEnabled = true;
             }
         }
     }

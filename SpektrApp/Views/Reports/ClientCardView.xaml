@@ -5,8 +5,112 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Reports"
         mc:Ignorable="d"
-        Title="ClientCardView" Height="450" Width="800">
+        Title="Карточка клиента" Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="65*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Выберите клиента:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1"></ComboBox>
+                <Button Width="40" Content="Точки" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5"></Button>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Margin="5 40 0 0" Grid.Row="0" Grid.Column="0" Width="450" HorizontalAlignment="Left">
+            <TextBlock Text="Монтажные проекты:" Margin="0 0 0 5"></TextBlock>
+            <DataGrid MinHeight="60" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата сдачи" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Адрес" Width="25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дополнительная информация" Width="40*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Margin="5 0 0 0" Grid.Row="1" Grid.Column="0" Width="450" HorizontalAlignment="Left">
+            <DockPanel>
+                <TextBlock Text="Обслуживаемые объекты:" Margin="0 0 150 5"></TextBlock>
+                <TextBlock Text="Отобразить актуальное:" HorizontalAlignment="Right"></TextBlock>
+                <CheckBox HorizontalAlignment="Right" Margin="2"></CheckBox>
+            </DockPanel>
+            <DataGrid MinHeight="60" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата начала" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дата окончания" Width="25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Адрес" Width="25*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Дополнительная информация" Width="40*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Grid Margin="5 10 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35*"></ColumnDefinition>
+                    <ColumnDefinition Width="65*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Выберите клиента:" Grid.Row="0" Grid.Column="0"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="0" Grid.Column="1"></ComboBox>
+                <TextBlock Text="Вид услуги:" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1"></ComboBox>
+                <TextBlock Text="Адрес:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBlock Text="Дополнительная информация:" Grid.Row="3" Grid.Column="0" TextWrapping="Wrap"></TextBlock>
+                <TextBox Style="{StaticResource SpecialTextBox}" MinHeight="40" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap"></TextBox>
+            </Grid>
+        </StackPanel>
+
+        <StackPanel Margin="5 0 0 0" Grid.Row="1" Grid.Column="1" Width="450" HorizontalAlignment="Left">
+            <TextBlock Text="Установленное оборудование:" Margin="0 5 0 5"></TextBlock>
+            <DataGrid MinHeight="60" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Width="10*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Оборудование" Width="50*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Категория" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Количество" Width="20*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Text="Ответственные сотрудники:" Margin="0 5 0 5"></TextBlock>
+            <DataGrid MinHeight="60" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ФИО" Width="55*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Должность" Width="45*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <DockPanel Grid.Row="3" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click" HorizontalAlignment="Left"></Button>
+        </DockPanel>
     </Grid>
 </Window>
