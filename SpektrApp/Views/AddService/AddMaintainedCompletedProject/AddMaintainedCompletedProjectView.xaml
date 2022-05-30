@@ -40,13 +40,13 @@
                 <TextBlock Text="Дата окончания обслуживания:" Grid.Row="1" Grid.Column="0"></TextBlock>
                 <DatePicker Style="{StaticResource SpecialDateOfBirthDate}" SelectedDate="{Binding MaintainedObject.ServiceEndDate}" Grid.Row="1" Grid.Column="1"></DatePicker>
                 <TextBlock Text="Выберите клиента:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></ComboBox>
-                <Button Margin="0 0 5 0" Width="110" Content="Добавить клиента" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right"></Button>
-                <Button Width="40" Content="Точки" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5"></Button>
+                <ComboBox ItemsSource="{Binding ClientList}" DisplayMemberPath="Name" SelectedItem ="{Binding MaintainedObject.Client}" Style="{StaticResource SpecialComboBox}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></ComboBox>
+                <Button Margin="0 0 5 0" Width="110" Content="Добавить клиента" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" Command="{Binding AddNewClientCommand}"></Button>
+                <Button Width="40" Content="Точки" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5" Command="{Binding ShowSearchClientViewCommand}"></Button>
                 <StackPanel Grid.Row="5" Grid.Column="0">
                     <TextBlock Text="Выбрать  оборудование:"></TextBlock>
                     <DockPanel>
-                        <Button Margin="2" Content="Корзина"></Button>
+                        <Button Margin="2" Content="Корзина" Command="{Binding ShowInstallationEquipmnetViewCommand}"></Button>
                         <Button Margin="2" Content="Индикатор"></Button>
                     </DockPanel>
                 </StackPanel>
@@ -55,13 +55,13 @@
 
         <StackPanel Grid.Row="1" Width="300" HorizontalAlignment="Left">
             <TextBlock Text="Ответственные за обслуживание:" Margin="0 0 0 15"></TextBlock>
-            <DataGrid MinHeight="60" Margin="10 0 0 0" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding MaintainedObject.Employee}" MinHeight="60" Margin="10 0 0 0" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Width="55*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Роль пользователя" Width="45*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО" Width="55*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность" Width="45*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Width="150" Margin="0 10 0 0" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowChooseEmployeesViewCommand}"></Button>
+            <Button Width="150" Margin="0 10 0 0" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowChooseEmployeeViewCommand}"></Button>
         </StackPanel>
 
         <StackPanel Grid.Row="2">

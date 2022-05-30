@@ -39,6 +39,8 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         {
             db = new ApplicationContext();
             _clientList = db.Clients.ToList();
+            _searchingClientName = "";
+
         }
 
         
@@ -51,14 +53,20 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
             get
             {
                 return _searchClientCommand ??
-                  (_searchClientCommand = new RelayCommand((selectedItem) =>
+                  (_searchClientCommand = new RelayCommand((o) =>
                   {
-                      
-                      string _enternedName = SearchingClientName;
+                      if(SearchingClientName == "")
+                      {
+                          ClientList = db.Clients.ToList();
+                      }
+                      else
+                      {
+                          ClientList = db.Clients.Where(c => c.Name.Contains(SearchingClientName)).ToList();
 
-                      ClientList = db.Clients.Where(c => c.Name.Contains(_enternedName)).ToList();
-                     
-                                            
+                      }
+
+
+
                   }));
             }
         }

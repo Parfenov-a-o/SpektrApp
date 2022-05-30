@@ -30,17 +30,17 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
-                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2"></Button>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}"></TextBox>
+                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2" Command="{Binding SearchEmployeeCommand}"></Button>
                 <TextBlock Text="Список сотрудников:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
             </Grid>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Width="750">
-            <DataGrid MaxHeight="500" MinHeight="100" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedEmployee}" MaxHeight="500" MinHeight="100" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Width="60*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Должность" Width="40*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО" Width="60*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность" Width="40*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

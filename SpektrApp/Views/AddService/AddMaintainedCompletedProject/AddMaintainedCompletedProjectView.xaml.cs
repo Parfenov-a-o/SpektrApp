@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject;
 
 namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject
 {
@@ -22,6 +23,8 @@ namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject
         public AddMaintainedCompletedProjectView()
         {
             InitializeComponent();
+
+            this.DataContext = new AddMaintainedCompletedProjectViewModel();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

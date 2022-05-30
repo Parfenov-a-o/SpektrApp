@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Additional;
+
+
 
 namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject.AdditionalMaintained
 {
@@ -19,9 +22,11 @@ namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject.AdditionalMai
     /// </summary>
     public partial class ChooseEmployeeView : Window
     {
-        public ChooseEmployeeView()
+        internal ChooseEmployeeView(ChooseEmployeeViewModel vm)
         {
             InitializeComponent();
+
+            this.DataContext = vm;
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
