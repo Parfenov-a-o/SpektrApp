@@ -81,9 +81,9 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Выберите клиента:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="0" Grid.Column="1"></ComboBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="0" Grid.Column="1" IsReadOnly="True"></TextBox>
                 <TextBlock Text="Вид услуги:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1"></ComboBox>
+                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="1" Grid.Column="1" IsReadOnly="True"></TextBox>
                 <TextBlock Text="Адрес:" Grid.Row="2" Grid.Column="0"></TextBlock>
                 <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
                 <TextBlock Text="Дополнительная информация:" Grid.Row="3" Grid.Column="0" TextWrapping="Wrap"></TextBlock>
