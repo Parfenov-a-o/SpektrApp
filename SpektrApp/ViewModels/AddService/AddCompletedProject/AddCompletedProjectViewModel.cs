@@ -41,6 +41,15 @@ namespace SpektrApp.ViewModels.AddService
         {
             get;set;
         }
+        public ChooseEmployeesViewModel ChooseEmployeesVM
+        {
+            get;set;
+        }
+
+        public ChoiceEmployeeInstallationAdditionalView ChoiceEmployeeInstallationView
+        {
+            get;set;
+        }
 
 
 
@@ -53,6 +62,8 @@ namespace SpektrApp.ViewModels.AddService
             _clientList = db.Clients.ToList();
 
             InstEquipVM = new InstallationEquipmentViewModel();
+            ChooseEmployeesVM = new ChooseEmployeesViewModel();
+            //ChoiceEmployeeInstallationView = new ChoiceEmployeeInstallationAdditionalView(ChooseEmployeesVM);
         }
 
 
@@ -67,6 +78,38 @@ namespace SpektrApp.ViewModels.AddService
                   {
 
                       //Добавить валидацию добавления проекта
+                      string? _message="";
+
+                      if(CompletedProject.ProjectCompletionDate.HasValue==false)
+                      {
+                          _message += "\nВы не указали дату завершения монтажного проекта!";
+                      }
+
+                      if (CompletedProject.Client == null)
+                      {
+                          _message+="\nВы не выбрали клиента!";
+                          
+                      }
+
+                      if (CompletedProject.InstalledEquipments.Count()==0)
+                      {
+                          _message += "\nВы не выбрали установленное оборудование!";
+                          
+                          
+                      }
+
+                      if(CompletedProject.Employees.Count()==0)
+                      {
+                          _message += "\nВы не выбрали сотрудников!";
+
+                      }
+
+                      
+                      if(_message.Length>0)
+                      {
+                          MessageBox.Show(_message);
+                          return;
+                      }
 
                       db.CompletedProjects.Add(CompletedProject);
                       db.SaveChanges();
@@ -110,31 +153,22 @@ namespace SpektrApp.ViewModels.AddService
                 return _showChooseEmployeesViewCommand ??
                   (_showChooseEmployeesViewCommand = new RelayCommand((o) =>
                   {
-                      ChooseEmployeesViewModel viewModel = new ChooseEmployeesViewModel();
 
-                      viewModel.SelectedEmployeeList = CompletedProject.Employees;
+                      ChoiceEmployeeInstallationAdditionalView view = new ChoiceEmployeeInstallationAdditionalView(ChooseEmployeesVM);
 
-                      List<Employee> _emplList = viewModel.AllEmployeeList.ToList();
-                      List<Employee> _avEmplList = viewModel.AvailableEmployeeList.ToList();
-
-                      foreach (var item in CompletedProject.Employees)
-                      {
-                          _emplList.RemoveAll(e=>e.Id == item.Id);
-                          _avEmplList.RemoveAll(e => e.Id == item.Id);
-                          //_avEmplList.Remove(item);
-
-                          //viewModel.AllEmployeeList.ToList().Remove(item);
-                      }
-
-                      viewModel.AllEmployeeList = _emplList;
-                      viewModel.AvailableEmployeeList = _avEmplList;
-
-                      ChoiceEmployeeInstallationAdditionalView view = new ChoiceEmployeeInstallationAdditionalView(viewModel);
+                      db.Employees.ToList();
+                      db.EmployeePositions.ToList();
+                      ChooseEmployeesVM.SelectedEmployeeList = CompletedProject.Employees;
+                      ChooseEmployeesVM.AllEmployeeList = db.Employees.Local.Except(CompletedProject.Employees);
+                      ChooseEmployeesVM.AvailableEmployeeList = db.Employees.Local.Except(CompletedProject.Employees);
 
                       if (view.ShowDialog() == true)
                       {
-                          CompletedProject.Employees = viewModel.SelectedEmployeeList.ToList();
+
+                          CompletedProject.Employees = ChooseEmployeesVM.SelectedEmployeeList.ToList();
+
                       }
+
 
 
                   }));
@@ -148,42 +182,53 @@ namespace SpektrApp.ViewModels.AddService
                 return _showInstallationEquipmnetViewCommand ??
                   (_showInstallationEquipmnetViewCommand = new RelayCommand((o) =>
                   {
+                      InstallationEquipmentAdditionalView view = new InstallationEquipmentAdditionalView(InstEquipVM);
 
-                      InstallationEquipmentViewModel viewModel = new InstallationEquipmentViewModel();
+                      //db.EquipmentCategories.ToList();
+                      //db.Equipments.ToList();
 
-                      List <InstalledEquipment> list1 = new List<InstalledEquipment>();
-                      foreach(var item in CompletedProject.InstalledEquipments)
-                      {
-                          list1.Add(new InstalledEquipment()
-                          {
-                              Id = item.Id,
-                              Count = item.Count,
-                              Equipment = item.Equipment,
-                              EquipmentId = item.EquipmentId,
-                              IndexNumber = item.IndexNumber,
-                          });
-                      }
+                      InstEquipVM.InstalledEquipmentList = CompletedProject.InstalledEquipments;
 
-                      viewModel.InstalledEquipmentList = list1;
-                      InstallationEquipmentAdditionalView view = new InstallationEquipmentAdditionalView(viewModel);
                       if (view.ShowDialog() == true)
                       {
-                          List<InstalledEquipment> _installedEquipmentList = new List<InstalledEquipment>();
-
-                          foreach (var item in viewModel.InstalledEquipmentList.ToList())
-                          {
-                              _installedEquipmentList.Add(new InstalledEquipment()
-                              {
-                                  Id = item.Id,
-                                  Count = item.Count,
-                                  Equipment = item.Equipment,
-                                  EquipmentId = item.EquipmentId,
-                                  IndexNumber = item.IndexNumber,
-                              });
-                          }
-
-                          CompletedProject.InstalledEquipments = _installedEquipmentList;
+                          CompletedProject.InstalledEquipments = InstEquipVM.InstalledEquipmentList.ToList();
                       }
+
+                      //InstallationEquipmentViewModel viewModel = new InstallationEquipmentViewModel();
+
+                        //List <InstalledEquipment> list1 = new List<InstalledEquipment>();
+                        //foreach(var item in CompletedProject.InstalledEquipments)
+                        //{
+                        //    list1.Add(new InstalledEquipment()
+                        //    {
+                        //        Id = item.Id,
+                        //        Count = item.Count,
+                        //        Equipment = item.Equipment,
+                        //        EquipmentId = item.EquipmentId,
+                        //        IndexNumber = item.IndexNumber,
+                        //    });
+                        //}
+
+                        //viewModel.InstalledEquipmentList = list1;
+                        //InstallationEquipmentAdditionalView view = new InstallationEquipmentAdditionalView(viewModel);
+                        //if (view.ShowDialog() == true)
+                        //{
+                        //    List<InstalledEquipment> _installedEquipmentList = new List<InstalledEquipment>();
+
+                        //    foreach (var item in viewModel.InstalledEquipmentList.ToList())
+                        //    {
+                        //        _installedEquipmentList.Add(new InstalledEquipment()
+                        //        {
+                        //            Id = item.Id,
+                        //            Count = item.Count,
+                        //            Equipment = item.Equipment,
+                        //            EquipmentId = item.EquipmentId,
+                        //            IndexNumber = item.IndexNumber,
+                        //        });
+                        //    }
+
+                        //    CompletedProject.InstalledEquipments = _installedEquipmentList;
+                        //}
 
 
                   }));

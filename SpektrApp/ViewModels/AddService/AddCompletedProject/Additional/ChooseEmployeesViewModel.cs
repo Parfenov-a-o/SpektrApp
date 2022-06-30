@@ -63,9 +63,10 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         {
             db = new ApplicationContext();
             _searchingEmployeeName = "";
-            _allEmployeeList = db.Employees.ToList();
+            db.Employees.ToList();
+            _allEmployeeList = db.Employees.Local.ToList();
             db.EmployeePositions.ToList();
-            _availableEmployeeList = _allEmployeeList.OrderBy(e=>e.FullName);
+            _availableEmployeeList = _allEmployeeList.OrderBy(e => e.FullName);
             _selectedEmployeeList = new List<Employee>();
         }
 
@@ -86,7 +87,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       
                       string _enternedName = SearchingEmployeeName;
 
-                      AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
+                      AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.ToLower().Contains(SearchingEmployeeName.ToLower())).ToList();
 
 
                   }));
@@ -110,16 +111,13 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       // получаем выделенный объект
                       Employee employee = selectedItem as Employee;
 
-                      List<Employee> _selectedEmplList = SelectedEmployeeList.ToList() ;
-                      _selectedEmplList.Add(employee);
-                      SelectedEmployeeList = _selectedEmplList;
-                      List<Employee> _availableEmplList2 = AvailableEmployeeList.ToList();
-                      _availableEmplList2.Remove(employee);
-                      AvailableEmployeeList = _availableEmplList2;
-                      List<Employee> _allEmplList = AllEmployeeList.ToList();
-                      _allEmplList.Remove(employee);
-                      AllEmployeeList = _allEmplList;
-
+                      
+                      //Добавление выбранного сотрудника в список выбранных сотрудников
+                      SelectedEmployeeList = SelectedEmployeeList.Append(employee)!;
+                      //Исключение добавленных сотрудников из списка доступных сотрудников
+                      AvailableEmployeeList = AvailableEmployeeList.Except(SelectedEmployeeList);
+                      //Исключение добавленных сотрудников из списка всех сотрудников
+                      AllEmployeeList = AllEmployeeList.Except(SelectedEmployeeList);
 
                   }));
             }
@@ -139,27 +137,17 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                           MessageBox.Show("В списке нет сотрудников!");
                           return;
                       }
-                      // получаем выделенный объект
-                      //Employee employee = selectedItem as Employee;
 
-                      List<Employee> _selectedEmplList = SelectedEmployeeList.ToList();
-                      _selectedEmplList.AddRange(AvailableEmployeeList);
-                      SelectedEmployeeList = _selectedEmplList;
-                      List<Employee> _allEmplList = AllEmployeeList.ToList();
-                      foreach (var empl in AvailableEmployeeList)
+                      //Перебор всех найденных сотрудников
+                      foreach(var item in AvailableEmployeeList)
                       {
-                          _allEmplList.Remove(empl);
+                          //Добавление всех найденных сотрудников
+                          SelectedEmployeeList = SelectedEmployeeList.Append(item)!;
                       }
-                      AllEmployeeList = _allEmplList;
-                      //List<Employee> _availableEmplList2 = AvailableEmployeeList.ToList();
-                      //_availableEmplList2.Clear();
-                      //AvailableEmployeeList = _availableEmplList2;
-                      AvailableEmployeeList = new List<Employee>();
-                      //List<Employee> _allEmplList = AllEmployeeList.ToList();
-                      
-                      //_allEmplList.Re
-                      //_allEmplList.RemoveAll(AvailableEmployeeList.ToList());
-                      
+                      //Исключение добавленных сотрудников из списка доступных сотрудников
+                      AvailableEmployeeList = AvailableEmployeeList.Except(SelectedEmployeeList);
+                      //Исключение добавленных сотрудников из списка всех сотрудников
+                      AllEmployeeList = AllEmployeeList.Except(SelectedEmployeeList);                   
 
 
                   }));
@@ -180,15 +168,14 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                           MessageBox.Show("Вы не выбрали сотрудника!");
                           return;
                       }
+
+
                       // получаем выделенный объект
                       Employee employee = selectedItem as Employee;
 
-                      List<Employee> _selectedEmplList = SelectedEmployeeList.ToList();
-                      _selectedEmplList.Remove(employee);
-                      SelectedEmployeeList = _selectedEmplList;
-                      List<Employee> _allEmplList = AllEmployeeList.ToList();
-                      _allEmplList.Add(employee);
-                      AllEmployeeList = _allEmplList.OrderBy(e=>e.FullName);
+                      AllEmployeeList = AllEmployeeList.Append(employee)!;
+                      AvailableEmployeeList = AvailableEmployeeList.Append(employee)!;
+                      SelectedEmployeeList = SelectedEmployeeList.Except(AllEmployeeList);
                       AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
 
 
@@ -209,16 +196,18 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                           return;
                       }
 
-                      List<Employee> _allEmplList = AllEmployeeList.ToList();
-                      foreach (var empl in SelectedEmployeeList)
+                      //Перебор всех выбранных сотрудников
+                      foreach (var item in SelectedEmployeeList)
                       {
-                          _allEmplList.Add(empl);
+                          //Возвращение в список доступных сотрудников
+                          AllEmployeeList = AllEmployeeList.Append(item)!;
+                          
                       }
-                      AllEmployeeList = _allEmplList;
+                      //Очистка списка выбранных сотрудников
+                      SelectedEmployeeList = SelectedEmployeeList.Except(AllEmployeeList);
+                      
                       AvailableEmployeeList = AllEmployeeList.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
                       
-                      SelectedEmployeeList = new List<Employee>();
-
 
                   }));
             }

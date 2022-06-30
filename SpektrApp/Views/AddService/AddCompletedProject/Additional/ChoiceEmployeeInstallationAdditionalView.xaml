@@ -36,7 +36,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Width="350">
-            <DataGrid x:Name="AvailableEmployeeListDataGrid"  MaxHeight="500" MinHeight="100" ItemsSource="{Binding AvailableEmployeeList}" SelectedItem="{Binding SelectedEmployee}" AutoGenerateColumns="False">
+            <DataGrid x:Name="AvailableEmployeeListDataGrid"  MaxHeight="500" MinHeight="100" ItemsSource="{Binding AvailableEmployeeList}" SelectedItem="{Binding SelectedEmployee}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
@@ -49,7 +49,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
-            <DataGrid x:Name="SelectedEmployeeListDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding SelectedEmployeeList}" SelectedItem="{Binding SelectedEmployeeInSelectedBox}" AutoGenerateColumns="False">
+            <DataGrid x:Name="SelectedEmployeeListDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding SelectedEmployeeList}" SelectedItem="{Binding SelectedEmployeeInSelectedBox}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>

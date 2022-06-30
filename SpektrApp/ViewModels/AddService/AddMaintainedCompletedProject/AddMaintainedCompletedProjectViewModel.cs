@@ -10,6 +10,7 @@ using SpektrApp.ViewModels.Handbook.EditInformationViewModels;
 using SpektrApp.Views.Handbook.EditInfoViews;
 using SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Additional;
 using SpektrApp.Views.AddService.AddMaintainedCompletedProject.AdditionalMaintained;
+using System.Windows;
 
 
 namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject
@@ -42,6 +43,10 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject
         {
             get; set;
         }
+        public ChooseEmployeeViewModel ChooseEmployeeVM
+        {
+            get; set;
+        }
 
 
         public AddMaintainedCompletedProjectViewModel()
@@ -53,6 +58,7 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject
             _clientList = db.Clients.ToList();
 
             InstEquipVM = new InstallationEquipmentViewModel();
+            ChooseEmployeeVM = new ChooseEmployeeViewModel();
         }
 
 
@@ -166,14 +172,22 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject
                   (_showChooseEmployeeViewCommand = new RelayCommand((o) =>
                   {
 
-                      ChooseEmployeeViewModel viewModel = new ChooseEmployeeViewModel();
+                      //ChooseEmployeeViewModel viewModel = new ChooseEmployeeViewModel();
 
-                      ChooseEmployeeView view = new ChooseEmployeeView(viewModel);
+                      ChooseEmployeeView view = new ChooseEmployeeView(ChooseEmployeeVM);
 
 
                       if (view.ShowDialog() == true)
                       {
-
+                          if(ChooseEmployeeVM.SelectedEmployee==null)
+                          {
+                              MessageBox.Show("Вы не выбрали сотрудника!");
+                              MaintainedObject.Employee = null;
+                          }
+                          else
+                          {
+                              MaintainedObject.Employee = ChooseEmployeeVM.SelectedEmployee;
+                          }
                           
 
                           //CompletedProject.Client = ClientList.ToList().Find(c => c.Id == viewModel.SelectedClient.Id);

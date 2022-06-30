@@ -13,6 +13,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         private IEnumerable<EquipmentCategory> _equipmentCategoryList;
         private EquipmentCategory _selectedEquipmentCategory;
         private IEnumerable<Equipment> _availableEquipmentList;
+        private IEnumerable<Equipment> _allEquipmentList;
         private Equipment _selectedEquipment;
         private double _count;
         private IEnumerable<InstalledEquipment> _installedEquipmentList;
@@ -36,6 +37,11 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
             get { return _availableEquipmentList; }
             set { _availableEquipmentList = value; OnPropertyChanged(nameof(AvailableEquipmentList)); }
         }
+        public IEnumerable<Equipment> AllEquipmentList
+        {
+            get { return _allEquipmentList; }
+            set { _allEquipmentList = value; OnPropertyChanged(nameof(AllEquipmentList)); }
+        }
         public Equipment SelectedEquipment
         {
             get { return _selectedEquipment; }
@@ -56,9 +62,12 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
         public InstallationEquipmentViewModel()
         {
             db = new ApplicationContext();
-            _equipmentCategoryList = db.EquipmentCategories.ToList();
+            db.EquipmentCategories.ToList();
+            _equipmentCategoryList = db.EquipmentCategories.Local.ToList();
             _installedEquipmentList = new List<InstalledEquipment>();
             db.Equipments.ToList();
+            _allEquipmentList = db.Equipments.Local.ToList();
+
         }
 
         //Команда для фильтрации по категории оборудования
@@ -78,7 +87,7 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
 
                       EquipmentCategory equipmentCategory = selectedItem as EquipmentCategory;
 
-                      AvailableEquipmentList = db.Equipments.Where(u => u.EquipmentCategoryId == equipmentCategory.Id).ToList();
+                      AvailableEquipmentList = AllEquipmentList.Where(u => u.EquipmentCategoryId == equipmentCategory.Id).ToList();
 
 
                   }));
@@ -96,27 +105,43 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                       if(SelectedEquipment==null)
                       {
                           MessageBox.Show("Вы не выбрали оборудование!");
+                          return;
                       }
 
-                      List<InstalledEquipment> _installedEquipmentList = InstalledEquipmentList.ToList();
-
-                      if(_installedEquipmentList.Where(i=>i.EquipmentId == SelectedEquipment.Id).Count()>0)
+                      InstalledEquipment _installedEquipment = new InstalledEquipment()
                       {
-                          _installedEquipmentList.Find(i => i.EquipmentId == SelectedEquipment.Id).Count += Count;
-                      }
-                      else
-                      {
-                          InstalledEquipment _installedEquipment = new InstalledEquipment()
-                          {
-                              IndexNumber = InstalledEquipmentList.Count() + 1,
-                              Equipment = SelectedEquipment,
-                              EquipmentId = SelectedEquipment.Id,
-                              Count = Count,
+                          IndexNumber = InstalledEquipmentList.Count() + 1,
+                          Equipment = SelectedEquipment,
+                          EquipmentId = SelectedEquipment.Id,
+                          Count = Count,
 
-                          };
-                          _installedEquipmentList.Add(_installedEquipment);
+                      };
+
+                      if (InstalledEquipmentList.Count()==0)
+                      {
+                          InstalledEquipmentList = InstalledEquipmentList.Append(_installedEquipment);
                       }
-                      InstalledEquipmentList = _installedEquipmentList;
+
+
+                      //List<InstalledEquipment> _installedEquipmentList = InstalledEquipmentList.ToList();
+
+                      //if(_installedEquipmentList.Where(i=>i.EquipmentId == SelectedEquipment.Id).Count()>0)
+                      //{
+                      //    _installedEquipmentList.Find(i => i.EquipmentId == SelectedEquipment.Id).Count += Count;
+                      //}
+                      //else
+                      //{
+                      //    InstalledEquipment _installedEquipment = new InstalledEquipment()
+                      //    {
+                      //        IndexNumber = InstalledEquipmentList.Count() + 1,
+                      //        Equipment = SelectedEquipment,
+                      //        EquipmentId = SelectedEquipment.Id,
+                      //        Count = Count,
+
+                      //    };
+                      //    _installedEquipmentList.Add(_installedEquipment);
+                      //}
+                      //InstalledEquipmentList = _installedEquipmentList;
                   }));
             }
         }

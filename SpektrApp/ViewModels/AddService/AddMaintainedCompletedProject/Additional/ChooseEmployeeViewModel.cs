@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SpektrApp.Models;
+using System.Windows;
 
 namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Additional
 {
     internal class ChooseEmployeeViewModel:BaseViewModel
     {
-        private RelayCommand _chooseEmployeeCommand;
+
         private RelayCommand _searchEmployeeCommand;
         private string _searchingEmployeeName;
         private IEnumerable<Employee> _employeeList;
+        private IEnumerable<Employee> _allEmployeeList;
         private Employee _selectedEmployee;
 
         public string SearchingEmployeeName
@@ -26,6 +28,11 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Addition
             get { return _employeeList; }
             set { _employeeList = value; OnPropertyChanged(nameof(EmployeeList)); }
         }
+        public IEnumerable<Employee> AllEmployeeList
+        {
+            get { return _allEmployeeList; }
+            set { _allEmployeeList = value; OnPropertyChanged(nameof(AllEmployeeList)); }
+        }
         public Employee SelectedEmployee
         {
             get { return _selectedEmployee; }
@@ -36,6 +43,7 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Addition
         {
             db = new ApplicationContext();
             _employeeList = db.Employees.ToList();
+            _allEmployeeList = db.Employees.ToList();
             _searchingEmployeeName = "";
 
         }
@@ -50,11 +58,11 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Addition
                   {
                       if(SearchingEmployeeName == "")
                       {
-                          EmployeeList = db.Employees.ToList();
+                          EmployeeList = AllEmployeeList;
                       }
                       else
                       {
-                          EmployeeList = db.Employees.Where(c => c.FullName.Contains(SearchingEmployeeName)).ToList();
+                          EmployeeList = AllEmployeeList.Where(c => c.FullName.ToLower().Contains(SearchingEmployeeName.ToLower())).ToList();
 
                       }
 
@@ -62,6 +70,7 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Addition
                   }));
             }
         }
+
 
 
     }

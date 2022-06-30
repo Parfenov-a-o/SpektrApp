@@ -52,7 +52,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Width="650">
-            <DataGrid MaxHeight="500" MinHeight="100" ItemsSource="{Binding InstalledEquipmentList}" AutoGenerateColumns="False">
+            <DataGrid MaxHeight="500" MinHeight="100" ItemsSource="{Binding InstalledEquipmentList}" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding IndexNumber}" Width="5*"></DataGridTextColumn>
                     <DataGridTextColumn Header="Наименование" Binding="{Binding Equipment.Name}" Width="50*"></DataGridTextColumn>

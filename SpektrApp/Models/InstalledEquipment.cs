@@ -40,5 +40,10 @@ namespace SpektrApp.Models
             set { _equipment = value; OnPropertyChanged("Equipment"); }
         }
 
+        //Список монтажных проектов
+        public List<CompletedProject> CompletedProjects { get; set; } = new();
+        //Список обслуживаемых объектов
+        public List<MaintainedObject> MaintainedObjects { get; set; } = new();
+
     }
 }
