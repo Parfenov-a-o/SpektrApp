@@ -10,6 +10,7 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
+    //ViewModel для окна "Справочник оборудования"
     internal class EquipmentViewModel:BaseViewModel
     {
         private RelayCommand addCommand;
@@ -19,22 +20,26 @@ namespace SpektrApp.ViewModels.Handbook
         private IEnumerable<EquipmentCategory> _equipmentCategoryList;
         private Equipment _selectedEquipment;
 
+        //Список оборудования
         public IEnumerable<Equipment> EquipmentList
         {
             get { return _equipmentList; }
             set { _equipmentList = value; OnPropertyChanged("EquipmentList"); }
         }
+        //Список категорий оборудования
         public IEnumerable<EquipmentCategory> EquipmentCategoryList
         {
             get { return _equipmentCategoryList; }
             set { _equipmentCategoryList = value; OnPropertyChanged("EquipmentCategoryList"); }
         }
+        //Выбранное из списка оборудование
         public Equipment SelectedEquipment
         {
             get { return _selectedEquipment; }
             set { _selectedEquipment = value; OnPropertyChanged("SelectedEquipment"); }
         }
 
+        //Конструктор без параметров
         public EquipmentViewModel()
         {
             db = new ApplicationContext();
@@ -47,7 +52,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для добавления
+        //Команда для добавления нового оборудования
         public RelayCommand AddCommand
         {
             get
@@ -75,7 +80,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для редактирования
+        //Команда для редактирования информации о выбранном оборудовании
         public RelayCommand EditCommand
         {
             get
@@ -92,6 +97,7 @@ namespace SpektrApp.ViewModels.Handbook
                       // получаем выделенный объект
                       Equipment equipment = selectedItem as Equipment;
 
+                      //Копируем данные о выбранном оборудовании в новый ViewModel
                       EquipmentEditInfoViewModel equipvm = new EquipmentEditInfoViewModel(new Equipment()
                       {
                           Id = equipment.Id,
@@ -102,11 +108,15 @@ namespace SpektrApp.ViewModels.Handbook
                           Units = equipment.Units,
                       });
 
+                      //Создаем представление
                       EquipmentEditInfoView view = new EquipmentEditInfoView(equipvm);
 
+                      //Вызов диалогового окна
                       if (view.ShowDialog() == true)
                       {
+                          //Извлекаем объект из БД по соответствующему id
                           equipment = db.Equipments.Find((object)equipvm.Equipment.Id);
+                          //Вносим изменения в объект и сохраняем в БД
                           if (equipment != null)
                           {
                               equipment.Id = equipvm.Equipment.Id;
@@ -124,7 +134,7 @@ namespace SpektrApp.ViewModels.Handbook
             }
         }
 
-        //Команда для фильтрации по категории оборудования
+        //Команда для фильтрации оборудования по категории
         public RelayCommand FilterByCategoryCommand
         {
             get
@@ -135,12 +145,12 @@ namespace SpektrApp.ViewModels.Handbook
                       //Если принимаемый командой параметр пуст
                       if (selectedItem == null)
                       {
-                          //MessageBox.Show("Вы не выбрали запись для редактирования!");
                           return;
                       }
 
                       EquipmentCategory equipmentCategory = selectedItem as EquipmentCategory;
 
+                      //Извлечь список оборудования выбранной категории
                       EquipmentList = db.Equipments.Where(u=>u.EquipmentCategoryId == equipmentCategory.Id).ToList();
 
 

@@ -4,63 +4,90 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.AddService.AddCompletedProject.Additional"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Выбор сотрудников выполняющих монтаж" Height="450" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/IconsDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"></RowDefinition>
-            <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="20*"></RowDefinition>
-            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="12*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="58*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
-                    <ColumnDefinition Width="80*"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}"></TextBox>
-                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2" Command="{Binding SearchEmployeeCommand}"></Button>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="16*"></ColumnDefinition>
+            <ColumnDefinition Width="40*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 5 0 0">
+            <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}" Height="20" MinWidth="200" VerticalAlignment="Top" Margin="10 0 5 0"></TextBox>
+            <Button Style="{StaticResource PlusAndMagnifierButtons}" Margin="0" Grid.Column="2" Command="{Binding SearchEmployeeCommand}">
+                <Image Style="{StaticResource MagnifierIcon}"></Image>
+            </Button>
+
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Width="350">
-            <DataGrid x:Name="AvailableEmployeeListDataGrid"  MaxHeight="500" MinHeight="100" ItemsSource="{Binding AvailableEmployeeList}" SelectedItem="{Binding SelectedEmployee}" AutoGenerateColumns="False" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Width="150" Margin="0" Content="Всех из 1 во 2" Command="{Binding AddAllEmployeesCommand}"></Button>
-            <Button Width="150" Margin="0" Content="Всех из 2 во 1" Command="{Binding RemoveAllEmployeesCommand}"></Button>
-            <Button Width="150" Margin="0" Content="Выбранного из 1 во 2" Command="{Binding AddSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=AvailableEmployeeListDataGrid,Path=SelectedItem}"></Button>
-            <Button Width="150" Margin="0" Content="Выбранного из 2 во 1" Command="{Binding RemoveSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=SelectedEmployeeListDataGrid,Path=SelectedItem}"></Button>
+        <TextBlock Text="Найденные сотрудники:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
+
+        <DataGrid x:Name="AvailableEmployeeListDataGrid" Grid.Row="2" Grid.Column="1" Style="{StaticResource SpecialDataGrid}" CanUserDeleteRows="False" Margin="0 5 0 0" MinHeight="200" ItemsSource="{Binding AvailableEmployeeList}" SelectedItem="{Binding SelectedEmployee}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding FullName}" IsReadOnly="True" Header="ФИО сотрудника" Width="70*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" IsReadOnly="True" Header="Должность сотрудника" Width="30*"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseDoubleClick" SourceObject="{Binding ElementName=AvailableEmployeeListDataGrid}">
+                    <behaviors:InvokeCommandAction Command="{Binding AddSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=AvailableEmployeeListDataGrid, Path=SelectedItem}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+        </DataGrid>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+
+            <Button Margin="0" Content=">>" Command="{Binding AddAllEmployeesCommand}"></Button>
+            <Button Margin="0" Content=">" Command="{Binding AddSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=AvailableEmployeeListDataGrid,Path=SelectedItem}"></Button>
+            <Button Margin="0" Content="&lt;" Command="{Binding RemoveSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=SelectedEmployeeListDataGrid,Path=SelectedItem}"></Button>
+            <Button Margin="0" Content="&lt;&lt;" Command="{Binding RemoveAllEmployeesCommand}"></Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Width="350" VerticalAlignment="Bottom">
-            <DataGrid x:Name="SelectedEmployeeListDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding SelectedEmployeeList}" SelectedItem="{Binding SelectedEmployeeInSelectedBox}" AutoGenerateColumns="False" CanUserAddRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО сотрудника" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность сотрудника" Width="5*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <TextBlock Text="Выбранные сотрудники:" Grid.Row="1" Grid.Column="3" VerticalAlignment="Bottom"></TextBlock>
 
-        <DockPanel Grid.Row="3" LastChildFill="True">
+        <DataGrid x:Name="SelectedEmployeeListDataGrid" Grid.Row="2" Grid.Column="3" Style="{StaticResource SpecialDataGrid}" CanUserDeleteRows="False" Margin="0 5 0 0" MinHeight="200" ItemsSource="{Binding SelectedEmployeeList}" SelectedItem="{Binding SelectedEmployeeInSelectedBox}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding FullName}" IsReadOnly="True" Header="ФИО сотрудника" Width="70*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" IsReadOnly="True" Header="Должность сотрудника" Width="30*"></DataGridTextColumn>
+            </DataGrid.Columns>
+            <behaviors:Interaction.Triggers>
+                <behaviors:EventTrigger EventName="MouseDoubleClick" SourceObject="{Binding ElementName=SelectedEmployeeListDataGrid}">
+                    <behaviors:InvokeCommandAction Command="{Binding RemoveSelectedEmployeeCommand}" CommandParameter="{Binding ElementName=SelectedEmployeeListDataGrid, Path=SelectedItem}" />
+                </behaviors:EventTrigger>
+            </behaviors:Interaction.Triggers>
+
+        </DataGrid>
+
+
+
+        <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
             <Label></Label>
         </DockPanel>
+
     </Grid>
 </Window>

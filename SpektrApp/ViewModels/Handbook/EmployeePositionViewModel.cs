@@ -10,6 +10,7 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
+    //ViewModel для окна "Справочник должностей сотрудников"
     internal class EmployeePositionViewModel:BaseViewModel
     {
         private RelayCommand addCommand;
@@ -18,17 +19,20 @@ namespace SpektrApp.ViewModels.Handbook
         private IEnumerable<EmployeePosition> _employeePositionList;
         private EmployeePosition _selectedEmployeePosition;
 
+        //Список должностей сотрудников
         public IEnumerable<EmployeePosition> EmployeePositionList
         {
             get { return _employeePositionList; }
             set { _employeePositionList = value; OnPropertyChanged("EmployeePositionList"); }
         }
+        //Выбранная из списка должность
         public EmployeePosition SelectedEmployeePosition
         {
             get { return _selectedEmployeePosition; }
             set { _selectedEmployeePosition = value; OnPropertyChanged("SelectedEmployeePosition"); }
         }
 
+        //Конструктор без параметров
         public EmployeePositionViewModel()
         {
             db = new ApplicationContext();
@@ -38,7 +42,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для добавления
+        //Команда для добавления новой должности
         public RelayCommand AddCommand
         {
             get
@@ -64,7 +68,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для редактирования
+        //Команда для редактирования выбранной должности
         public RelayCommand EditCommand
         {
             get
@@ -82,17 +86,21 @@ namespace SpektrApp.ViewModels.Handbook
                       // получаем выделенный объект
                       EmployeePosition employeePosition = selectedItem as EmployeePosition;
 
+                      //Копируем данные из выбранной должности в новый VM
                       EmployeePositionEditInfoViewModel emplposvm = new EmployeePositionEditInfoViewModel(new EmployeePosition()
                       {
                           Id = employeePosition.Id,
                           Name = employeePosition.Name,
                           Employees = employeePosition.Employees,
                       });
-
+                      //Создаём представление
                       EmployeePositionEditInfoView view = new EmployeePositionEditInfoView(emplposvm);
+                      //Вызываем диалоговое окно
                       if(view.ShowDialog()==true)
                       {
+                          //Извлекаем из БД объект по соответствующему id
                           employeePosition = db.EmployeePositions.Find((object)emplposvm.EmployeePosition.Id);
+                          //Вносим изменения в объект и сохраняем в БД
                           if(employeePosition != null)
                           {
                               employeePosition.Id = emplposvm.EmployeePosition.Id;

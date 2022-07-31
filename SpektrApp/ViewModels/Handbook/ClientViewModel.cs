@@ -9,6 +9,7 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
+    //ViewModel для окна "Справочник клиентов"
     internal class ClientViewModel:BaseViewModel
     {
         private RelayCommand addCommand;
@@ -17,18 +18,19 @@ namespace SpektrApp.ViewModels.Handbook
 
         private Client _selectedClient;
 
+        //Список клиентов
         public IEnumerable<Client> ClientList
         {
             get { return _clientList; }
             set { _clientList = value; OnPropertyChanged("ClientList"); }
         }
-
+        //Выбранный клиент
         public Client SelectedClient
         {
             get { return _selectedClient; }
             set { _selectedClient = value; OnPropertyChanged(nameof(SelectedClient)); }
         }
-
+        //Конструктор без параметров
         public ClientViewModel()
         {
             db = new ApplicationContext();
@@ -39,7 +41,7 @@ namespace SpektrApp.ViewModels.Handbook
 
 
 
-        //Команда для добавления
+        //Команда для добавления нового клиента
         public RelayCommand AddCommand
         {
             get
@@ -66,7 +68,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для редактирования
+        //Команда для редактирования информации о клиенте
         public RelayCommand EditCommand
         {
             get
@@ -83,6 +85,7 @@ namespace SpektrApp.ViewModels.Handbook
                       // получаем выделенный объект
                       Client client = selectedItem as Client;
 
+                      //Копируем данные выбранного объекта
                       EditInformationViewModels.ClientEditInfoViewModel clvm = new EditInformationViewModels.ClientEditInfoViewModel(new Client() 
                       {
                           Id = client.Id,
@@ -95,11 +98,15 @@ namespace SpektrApp.ViewModels.Handbook
                           PhoneNumber = client.PhoneNumber
                       });
 
+                      //Создаём представление
                       ClientEditInfoView view = new ClientEditInfoView(clvm);
 
+                      //Вызываем диалоговое окно
                       if (view.ShowDialog() == true)
                       {
+                          //Находим клиента с выбранным id
                           client = db.Clients.Find((object)clvm.Client.Id);
+                          //Обновляем данные
                           if(client != null)
                           {
                               client.Id = clvm.Client.Id;

@@ -8,85 +8,108 @@
         Title="Добавление монтажа" Height="550" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/IconsDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="RemoveIconStyle">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ShortSelectedFilePath}"
+                        Value="">
+                        <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ShortSelectedFilePath}"
+                        Value="{x:Null}">
+                        <Setter Property="TextBlock.Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*"></RowDefinition>
-            <RowDefinition Height="25*"></RowDefinition>
-            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="34*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"></ColumnDefinition>
-                    <ColumnDefinition Width="35*"></ColumnDefinition>
-                    <ColumnDefinition Width="35*"></ColumnDefinition>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Дата сдачи проекта:"></TextBlock>
-                <DatePicker Style="{StaticResource SpecialDateOfBirthDate}" SelectedDate="{Binding CompletedProject.ProjectCompletionDate}" Grid.Row="0" Grid.Column="1"></DatePicker>
-                <TextBlock Text="Выберите клиента:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource ="{Binding ClientList}" DisplayMemberPath="Name" SelectedItem ="{Binding CompletedProject.Client}"></ComboBox>
-                <Button Width="110" Content="Добавить клиента" Grid.Row="0" Grid.Column="2" Command="{Binding AddNewClientCommand}"></Button>
-                <Button Width="40" Content="Точки" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5" Command="{Binding ShowSearchClientViewCommand}" ></Button>
-                <StackPanel Grid.Row="2" Grid.Column="0">
-                    <TextBlock Text="Выбрать  оборудование:"></TextBlock>
-                    <DockPanel>
-                        <Button Margin="2" Content="Корзина" Command="{Binding ShowInstallationEquipmnetViewCommand}"></Button>
-                        <Button Margin="2" Content="Индикатор"></Button>
-                    </DockPanel>
-                </StackPanel>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="71*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <TextBlock Text="Дата сдачи проекта:" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"></TextBlock>
+        <DatePicker Style="{StaticResource SpecialDateOfBirthDate}" SelectedDate="{Binding SelectedDate}" Grid.Row="0" Grid.Column="2" MaxHeight="28" VerticalAlignment="Center" MaxWidth="250" HorizontalAlignment="Left"></DatePicker>
+        <TextBlock Text="Выберите клиента:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
+            <ComboBox Style="{StaticResource SpecialComboBox}" Margin="0 5 0 5" ItemsSource ="{Binding ClientList}" DisplayMemberPath="Name" SelectedItem ="{Binding SelectedClient}" Width="250" MaxHeight="20"></ComboBox>
+            <Button Width="30" Height="20" Margin="5 0 0 0" Command="{Binding ShowSearchClientViewCommand}" MaxHeight="20" MaxWidth="30" >
+                <Image Style="{StaticResource MagnifierIcon}"></Image>
+            </Button>
+            <Button Width="30" Height="20" Command="{Binding AddNewClientCommand}" MaxWidth="30" MaxHeight="20">
+                <Image Style="{StaticResource PlusIcon}"></Image>
+            </Button>
+
         </StackPanel>
-        
-        <StackPanel Grid.Row="1" Width="300" HorizontalAlignment="Left">
-            <TextBlock Text="Ответственные за монтаж:" Margin="0 0 0 15"></TextBlock>
-            <DataGrid ItemsSource="{Binding CompletedProject.Employees}" MinHeight="60" Margin="10 0 0 0" AutoGenerateColumns="False" CanUserAddRows="False">
+
+        <TextBlock Text="Выбрать  оборудование:" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"></TextBlock>
+
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" Orientation="Horizontal">
+
+            <Button Margin="2" Command="{Binding ShowInstallationEquipmnetViewCommand}" Height="30" Width="30" MaxWidth="40">
+                <StackPanel Orientation="Horizontal">
+                    <Image Style="{StaticResource BasketIcon}"></Image>
+                </StackPanel>
+
+            </Button>
+            <TextBlock Text="{Binding SelectedEquipment.Count, StringFormat='Количество товаров в корзине: {0}'}" Margin="10 0 0 0" VerticalAlignment="Center"></TextBlock>
+        </StackPanel>
+
+
+       
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+            <TextBlock Text="Выберите сотрудников, выполнивших монтажный проект:" Margin="0 5 0 0"></TextBlock>
+            <DataGrid ItemsSource="{Binding SelectedEmployees}" MinHeight="100" Margin="0 5 5 0" AutoGenerateColumns="False" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id" Width="55*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО" Width="55*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность" Width="45*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EmployeePosition.Id}" Header="Код должности" Width="45*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding FullName}" IsReadOnly="True" Header="ФИО" Width="65*"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" IsReadOnly="True" Header="Должность" Width="35*"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Width="150" Margin="0 10 0 0" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowChooseEmployeesViewCommand}"></Button>
+            <Button Width="150" Margin="0 5 5 0" Content="Добавить сотрудника" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowChooseEmployeesViewCommand}"></Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="2">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"></ColumnDefinition>
-                    <ColumnDefinition Width="70*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Адрес объекта:"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
-                <TextBlock Text="Дополнительная информация по объекту:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <TextBox Height="40" Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" Grid.ColumnSpan="2"></TextBox>
-                <TextBlock Margin="0 10 0 0" Text="Схема объекта (прикрепите файл):" Grid.Row="3" Grid.Column="0"></TextBlock>
-                <Button Width="50" Content="Файл" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left"></Button>
-                <TextBlock Text="Согласие клиента на дальнейшее обслуживание:" Grid.Row="4" Grid.Column="0" TextWrapping="Wrap"></TextBlock>
-                <CheckBox Margin="25 0 0 0" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"></CheckBox>
-            </Grid>
+        <TextBlock Text="Адрес объекта:" Grid.Row="4" Grid.Column="1" VerticalAlignment="Top"></TextBlock>
+        <TextBox Text="{Binding Address}" Grid.Row="4" Grid.Column="2" MaxHeight="20" VerticalAlignment="Top"></TextBox>
+        <TextBlock Text="Дополнительная информация:" Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" Margin="0 5 0 0"></TextBlock>
+        <TextBox Text="{Binding ObjectDescription}" Height="60" Grid.Row="5" Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0 5 0 0"></TextBox>
+        <TextBlock TextWrapping="Wrap" Text="Схема объекта (прикрепите файл):" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="2">
+            <Button Command="{Binding AddSchemeFileCommand}" Width="50" Content="Файл"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0"></Button>
+            <TextBlock Text="{Binding ShortSelectedFilePath, StringFormat='Имя файла: {0}'}" MaxWidth="300" Margin="10 0 0 0" VerticalAlignment="Center"></TextBlock>
+            <Button Style="{StaticResource RemoveIconStyle}" BorderThickness="0" Width="30" Height="20" Margin="5 0 0 0" Command="{Binding RemoveFileCommand}" VerticalAlignment="Center" Background="{x:Null}">
+                <Image Style ="{StaticResource RemoveIcon}"></Image>
+            </Button>
         </StackPanel>
+        <TextBlock Text="Согласие клиента на дальнейшее обслуживание:" Grid.Row="7" Grid.Column="1" TextWrapping="Wrap"></TextBlock>
+        <CheckBox Margin="5 5 0 0" Grid.Row="7" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" IsChecked ="{Binding IsAgreeService}"></CheckBox>
 
-        <DockPanel Grid.Row="3" LastChildFill="True">
+
+        <DockPanel Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Command="{Binding AddCommand}"></Button>
             <Label></Label>

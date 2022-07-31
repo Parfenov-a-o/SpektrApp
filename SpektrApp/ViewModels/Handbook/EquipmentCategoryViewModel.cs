@@ -10,6 +10,7 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
+    //ViewModel для окна "Справочник категорий оборудования"
     internal class EquipmentCategoryViewModel:BaseViewModel
     {
         private RelayCommand addCommand;
@@ -17,17 +18,20 @@ namespace SpektrApp.ViewModels.Handbook
         private IEnumerable<EquipmentCategory> _equipmentCategoryList;
         private EquipmentCategory _selectedEquipmentCategory;
 
+        //Список категорий оборудования
         public IEnumerable<EquipmentCategory> EquipmentCategoryList
         {
             get { return _equipmentCategoryList; }
             set { _equipmentCategoryList = value; OnPropertyChanged("EquipmentCategoryList"); }
         }
+        //Выбранная категория
         public EquipmentCategory SelectedEquipmentCategory
         {
             get { return _selectedEquipmentCategory; }
             set { _selectedEquipmentCategory = value; OnPropertyChanged("SelectedEquipmentCategory"); }
         }
 
+        //Конструктор без параметров
         public EquipmentCategoryViewModel()
         {
             db = new ApplicationContext();
@@ -37,7 +41,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для добавления
+        //Команда для добавления новой категории оборудования
         public RelayCommand AddCommand
         {
             get
@@ -63,7 +67,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для редактирования
+        //Команда для редактирования выбранной категории
         public RelayCommand EditCommand
         {
             get
@@ -81,17 +85,21 @@ namespace SpektrApp.ViewModels.Handbook
                       // получаем выделенный объект
                       EquipmentCategory equipmentCategory = selectedItem as EquipmentCategory;
 
+                      //Копируем данные в новый viewModel
                       EquipmentCategoryEditInfoViewModel equipcatvm = new EquipmentCategoryEditInfoViewModel(new EquipmentCategory()
                       {
                           Id = equipmentCategory.Id,
                           Name = equipmentCategory.Name,
                           Equipments = equipmentCategory.Equipments,
                       });
-
+                      //Создаём представление
                       EquipmentCategoryEditInfoView view = new EquipmentCategoryEditInfoView(equipcatvm);
+                      //Вызов диалогового окна
                       if (view.ShowDialog() == true)
                       {
+                          //Извлекаем из БД объект с соответствующим id
                           equipmentCategory = db.EquipmentCategories.Find((object)equipcatvm.EquipmentCategory.Id);
+                          //Вносим изменения и сохраняем их в БД
                           if (equipmentCategory != null)
                           {
                               equipmentCategory.Id = equipcatvm.EquipmentCategory.Id;

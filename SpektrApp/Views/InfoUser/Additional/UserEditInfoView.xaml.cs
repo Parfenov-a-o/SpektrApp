@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpektrApp.ViewModels.InfoUser.Additional;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace SpektrApp.Views.InfoUser.Additional
     /// </summary>
     public partial class UserEditInfoView : Window
     {
-        public UserEditInfoView()
+        internal UserEditInfoView(UserEditInfoViewModel VM)
         {
             InitializeComponent();
+
+            this.DataContext = VM;
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

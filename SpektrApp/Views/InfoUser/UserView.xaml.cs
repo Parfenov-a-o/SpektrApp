@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpektrApp.ViewModels.InfoUser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace SpektrApp.Views.InfoUser
         public UserView()
         {
             InitializeComponent();
+
+            this.DataContext = new UserViewModel();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -27,7 +27,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите роль пользователя:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding UserRole.Name}" Grid.Row="0" Grid.Column="1"></TextBox>
             </Grid>
         </StackPanel>
 

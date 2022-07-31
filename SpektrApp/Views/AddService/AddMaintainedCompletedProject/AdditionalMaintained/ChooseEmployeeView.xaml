@@ -8,44 +8,48 @@
         Title="Выбор сотрудника по обслуживанию" Height="450" Width="800"
     WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/IconsDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"></RowDefinition>
-            <RowDefinition Height="70*"></RowDefinition>
-            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="13*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                    <ColumnDefinition Width="85*"></ColumnDefinition>
-                    <ColumnDefinition Width="10*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}"></TextBox>
-                <Button Width="50" Margin="0" Content="Лупа" Grid.Column="2" Command="{Binding SearchEmployeeCommand}"></Button>
-                <TextBlock Text="Список сотрудников:" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"></TextBlock>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="96*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="0 10 0 0">
+            <TextBlock Text="Поиск:" Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchingEmployeeName}"  Height="20" MinWidth="600" VerticalAlignment="Top" Margin="10 0 5 0"></TextBox>
+            <Button Style="{StaticResource PlusAndMagnifierButtons}" Margin="0" Grid.Column="2" Command="{Binding SearchEmployeeCommand}">
+                <Image Style="{StaticResource MagnifierIcon}"></Image>
+            </Button>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Width="750">
-            <DataGrid ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedEmployee}" MaxHeight="500" MinHeight="100" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding FullName}" Header="ФИО" Width="60*"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" Header="Должность" Width="40*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <TextBlock Text="Список найденных сотрудников:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
 
-        <DockPanel Grid.Row="2" LastChildFill="True">
+        <DataGrid Style="{StaticResource SpecialDataGrid}" ItemsSource="{Binding EmployeeList}" SelectedItem="{Binding SelectedEmployee}" CanUserDeleteRows="False" MinHeight="240" Grid.Row="2" Grid.Column="1" Margin="0 5 0 0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding FullName}" IsReadOnly="True" Header="ФИО" Width="60*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding EmployeePosition.Name}" IsReadOnly="True" Header="Должность" Width="40*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel Grid.Row="4" Grid.Column="1" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
             <Button x:Name="OkButton" Content="Ок" DockPanel.Dock="Right" Click="OkButton_Click"></Button>
             <Label></Label>

@@ -8,38 +8,58 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
 {
+    //ViewModel для окна "Поиск клиента"
     internal class SearchClientViewModel:BaseViewModel
     {
         private RelayCommand _chooseClientCommand;
         private RelayCommand _searchClientCommand;
         private string _searchingClientName;
-        private IEnumerable<Client> _clientList;
+        private List<Client> _clientList;
+        private List<Client> _allClientList;
         private Client _selectedClient;
 
+        //Введенное в строку поиска значение
         public string SearchingClientName
         {
             get { return _searchingClientName; }
             set { _searchingClientName = value; OnPropertyChanged(nameof(SearchingClientName)); }
         }
 
-        public IEnumerable<Client> ClientList
+        //Список найденных клиентов
+        public List<Client> ClientList
         {
             get { return _clientList; }
             set { _clientList = value; OnPropertyChanged(nameof(ClientList)); }
         }
+
+        //Список доступных для поиска клиентов
+        public List<Client> AllClientList
+        {
+            get { return _allClientList; }
+            set { _allClientList = value; OnPropertyChanged(nameof(AllClientList)); }
+        }
+        //Выбранный клиент
         public Client SelectedClient
         {
             get { return _selectedClient; }
             set { _selectedClient = value; OnPropertyChanged(nameof(SelectedClient)); }
         }
 
-        public bool Result { get; set; }
-
+        //Конструктор без параметров
         public SearchClientViewModel()
         {
-            db = new ApplicationContext();
-            _clientList = db.Clients.ToList();
-            _searchingClientName = "";
+            using(var db = new ApplicationContext())
+            {
+                _clientList = new List<Client>();
+                _allClientList = new List<Client>();
+                foreach(var client in db.Clients)
+                {
+                    ClientList.Add(client);
+                    AllClientList.Add(client);
+                }
+                _searchingClientName = "";
+            }
+            
 
         }
 
@@ -55,86 +75,18 @@ namespace SpektrApp.ViewModels.AddService.AddCompletedProject.Additional
                 return _searchClientCommand ??
                   (_searchClientCommand = new RelayCommand((o) =>
                   {
+                      //Очистить результаты предыдущего поиска
+                      ClientList.Clear();
                       if(SearchingClientName == "")
                       {
-                          ClientList = db.Clients.ToList();
+                          //Выбрать всех из списка "Все клиенты"
+                          ClientList = AllClientList.Select(c=>c).ToList();
                       }
                       else
                       {
-                          ClientList = db.Clients.Where(c => c.Name.Contains(SearchingClientName)).ToList();
-
+                          //Выбрать из списка "Все клиенты" по совпадению с указанным значением в строке поиска
+                          ClientList = AllClientList.Where(c => c.Name.ToLower().Contains(SearchingClientName.ToLower())).ToList();
                       }
-
-
-
-                  }));
-            }
-        }
-
-
-
-
-        //Команда для редактирования
-        public RelayCommand ChooseClientCommand
-        {
-            get
-            {
-                return _chooseClientCommand ??
-                  (_chooseClientCommand = new RelayCommand((selectedItem) =>
-                  {
-                      //Если принимаемый командой параметр пуст
-                      if (selectedItem == null)
-                      {
-                          MessageBox.Show("Вы не выбрали клиента!");
-                          Result = false;
-                          return;
-                      }
-                      else
-                      {
-                          if(selectedItem is Client)
-                          {
-                              Result = true;
-                          }
-                      }
-
-                      //Пока что не знаю как сделать добавление
-
-
-                      //// получаем выделенный объект
-                      //Client client = selectedItem as Client;
-
-                      //EditInformationViewModels.ClientEditInfoViewModel clvm = new EditInformationViewModels.ClientEditInfoViewModel(new Client()
-                      //{
-                      //    Id = client.Id,
-                      //    Name = client.Name,
-                      //    Address = client.Address,
-                      //    CompletedProjects = client.CompletedProjects,
-                      //    Contacts = client.Contacts,
-                      //    Email = client.Email,
-                      //    MaintainedObjects = client.MaintainedObjects,
-                      //    PhoneNumber = client.PhoneNumber
-                      //});
-
-                      //ClientEditInfoView view = new ClientEditInfoView(clvm);
-
-                      //if (view.ShowDialog() == true)
-                      //{
-                      //    client = db.Clients.Find((object)clvm.Client.Id);
-                      //    if (client != null)
-                      //    {
-                      //        client.Id = clvm.Client.Id;
-                      //        client.Name = clvm.Client.Name;
-                      //        client.Address = clvm.Client.Address;
-                      //        client.CompletedProjects = clvm.Client.CompletedProjects;
-                      //        client.Contacts = clvm.Client.Contacts;
-                      //        client.Email = clvm.Client.Email;
-                      //        client.MaintainedObjects = clvm.Client.MaintainedObjects;
-                      //        client.PhoneNumber = clvm.Client.PhoneNumber;
-
-                      //        db.Entry(client).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                      //        db.SaveChanges();
-                      //    }
-                      //}
                   }));
             }
         }

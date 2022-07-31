@@ -32,6 +32,36 @@ namespace SpektrApp.Migrations
                     b.ToTable("CompletedProjectEmployee");
                 });
 
+            modelBuilder.Entity("CompletedProjectInstalledEquipment", b =>
+                {
+                    b.Property<int>("CompletedProjectsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("InstalledEquipmentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CompletedProjectsId", "InstalledEquipmentsId");
+
+                    b.HasIndex("InstalledEquipmentsId");
+
+                    b.ToTable("CompletedProjectInstalledEquipment");
+                });
+
+            modelBuilder.Entity("InstalledEquipmentMaintainedObject", b =>
+                {
+                    b.Property<int>("InstalledEquipmentsId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MaintainedObjectsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("InstalledEquipmentsId", "MaintainedObjectsId");
+
+                    b.HasIndex("MaintainedObjectsId");
+
+                    b.ToTable("InstalledEquipmentMaintainedObject");
+                });
+
             modelBuilder.Entity("SpektrApp.Models.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -269,9 +299,6 @@ namespace SpektrApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CompletedProjectId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<double>("Count")
                         .HasColumnType("REAL");
 
@@ -281,16 +308,9 @@ namespace SpektrApp.Migrations
                     b.Property<int>("IndexNumber")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MaintainedObjectId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CompletedProjectId");
-
                     b.HasIndex("EquipmentId");
-
-                    b.HasIndex("MaintainedObjectId");
 
                     b.ToTable("InstalledEquipment");
                 });
@@ -333,10 +353,6 @@ namespace SpektrApp.Migrations
 
             modelBuilder.Entity("SpektrApp.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Login")
                         .HasColumnType("TEXT");
 
@@ -346,7 +362,7 @@ namespace SpektrApp.Migrations
                     b.Property<int>("UserRoleId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("Login");
 
                     b.HasIndex("UserRoleId");
 
@@ -379,6 +395,36 @@ namespace SpektrApp.Migrations
                     b.HasOne("SpektrApp.Models.Employee", null)
                         .WithMany()
                         .HasForeignKey("EmployeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CompletedProjectInstalledEquipment", b =>
+                {
+                    b.HasOne("SpektrApp.Models.CompletedProject", null)
+                        .WithMany()
+                        .HasForeignKey("CompletedProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SpektrApp.Models.InstalledEquipment", null)
+                        .WithMany()
+                        .HasForeignKey("InstalledEquipmentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("InstalledEquipmentMaintainedObject", b =>
+                {
+                    b.HasOne("SpektrApp.Models.InstalledEquipment", null)
+                        .WithMany()
+                        .HasForeignKey("InstalledEquipmentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SpektrApp.Models.MaintainedObject", null)
+                        .WithMany()
+                        .HasForeignKey("MaintainedObjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -418,19 +464,11 @@ namespace SpektrApp.Migrations
 
             modelBuilder.Entity("SpektrApp.Models.InstalledEquipment", b =>
                 {
-                    b.HasOne("SpektrApp.Models.CompletedProject", null)
-                        .WithMany("InstalledEquipments")
-                        .HasForeignKey("CompletedProjectId");
-
                     b.HasOne("SpektrApp.Models.Equipment", "Equipment")
                         .WithMany()
                         .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SpektrApp.Models.MaintainedObject", null)
-                        .WithMany("InstalledEquipments")
-                        .HasForeignKey("MaintainedObjectId");
 
                     b.Navigation("Equipment");
                 });
@@ -472,11 +510,6 @@ namespace SpektrApp.Migrations
                     b.Navigation("MaintainedObjects");
                 });
 
-            modelBuilder.Entity("SpektrApp.Models.CompletedProject", b =>
-                {
-                    b.Navigation("InstalledEquipments");
-                });
-
             modelBuilder.Entity("SpektrApp.Models.Employee", b =>
                 {
                     b.Navigation("MaintainedObjects");
@@ -490,11 +523,6 @@ namespace SpektrApp.Migrations
             modelBuilder.Entity("SpektrApp.Models.EquipmentCategory", b =>
                 {
                     b.Navigation("Equipments");
-                });
-
-            modelBuilder.Entity("SpektrApp.Models.MaintainedObject", b =>
-                {
-                    b.Navigation("InstalledEquipments");
                 });
 
             modelBuilder.Entity("SpektrApp.Models.UserRole", b =>

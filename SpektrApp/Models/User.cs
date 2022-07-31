@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpektrApp.Models
 {
@@ -15,11 +16,9 @@ namespace SpektrApp.Models
         private UserRole _userRole;
 
 
-        //!!!Указать в качестве первичного ключа ЛОГИН
-        //Идентификатор пользователя
-        public int Id { get; set; }
         //Логин пользователя
-        public string? Login
+        [Key]
+        public string Login
         {
             get { return _login; }
             set { _login = value; OnPropertyChanged("Login"); }

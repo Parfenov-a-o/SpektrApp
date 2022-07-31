@@ -7,6 +7,7 @@ using SpektrApp.Models;
 
 namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
 {
+    //ViewModel для окна "Изменить сведения о сотруднике"
     internal class EmployeeEditInfoViewModel:BaseViewModel
     {
         private Employee _employee;
@@ -17,24 +18,26 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
             "Мужской","Женский"
         };
 
-
+        //Изменяемая сущность "Сотрудник"
         public Employee Employee
         {
             get { return _employee; }
             set { _employee = value; OnPropertyChanged(nameof(Employee)); }
         }
 
+        //Список должностей сотрудников
         public IEnumerable<EmployeePosition> EmployeePositionList
         {
             get { return _employeePositionList; }
             set { _employeePositionList = value; OnPropertyChanged(nameof(EmployeePositionList)); }
         }
-
+        //Выбранная должность
         public EmployeePosition SelectedEmployeePosition
         {
             get { return _selectedEmployeePosition; }
             set { _selectedEmployeePosition = value; OnPropertyChanged(nameof(SelectedEmployeePosition)); }
         }
+        //Список возможных полов сотрудников (Мужской/женский)
         public IEnumerable<string> GenderList
         {
             get { return _genderList; }
@@ -42,7 +45,7 @@ namespace SpektrApp.ViewModels.Handbook.EditInformationViewModels
         }
 
 
-
+        //Конструктор с параметром типа "Employee"
         public EmployeeEditInfoViewModel(Employee empl)
         {
             _employee = empl;

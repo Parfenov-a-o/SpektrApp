@@ -14,40 +14,48 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="89*"></RowDefinition>
-            <RowDefinition Height="11*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="54*"></RowDefinition>
+            <RowDefinition Height="21*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <DockPanel Margin="5">
-                <TextBlock Text="Выберите категорию оборудования" Margin="0 0 10 0"></TextBlock>
-                <ComboBox x:Name="EquipmentCategoryComboBox" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name">
-                    <behaviors:Interaction.Triggers>
-                        <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=EquipmentCategoryComboBox}">
-                            <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}" />
-                        </behaviors:EventTrigger>
-                    </behaviors:Interaction.Triggers>
-                </ComboBox>
-            </DockPanel>
-            <DataGrid x:Name="HandBookDataGrid" MaxHeight="500" MinHeight="100" ItemsSource="{Binding EquipmentList}" AutoGenerateColumns="False" SelectedItem="{Binding SelectedEquipment}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Наименование" Width="30*"  Binding="{Binding Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Описание" Width="35*" Binding="{Binding Description}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Категория" Width="15*" Binding="{Binding EquipmentCategory.Name}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Единица измерения" Width="15*" Binding="{Binding Units}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <DockPanel LastChildFill="True" HorizontalAlignment="Left">
-                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
-                <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
-                <Button Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
-            </DockPanel>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="96*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
-        <DockPanel Grid.Row="1" LastChildFill="True">
+        <DockPanel Margin="5" Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="Выберите категорию оборудования" Margin="0 0 10 0"></TextBlock>
+            <ComboBox x:Name="EquipmentCategoryComboBox" ItemsSource="{Binding EquipmentCategoryList}" DisplayMemberPath="Name" MaxHeight="20" VerticalAlignment="Top">
+                <behaviors:Interaction.Triggers>
+                    <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=EquipmentCategoryComboBox}">
+                        <behaviors:InvokeCommandAction Command="{Binding FilterByCategoryCommand}" CommandParameter="{Binding ElementName=EquipmentCategoryComboBox, Path=SelectedItem}" />
+                    </behaviors:EventTrigger>
+                </behaviors:Interaction.Triggers>
+            </ComboBox>
+        </DockPanel>
+
+        <DataGrid x:Name="HandBookDataGrid" Style="{StaticResource SpecialDataGrid}" Grid.Row="1" Grid.Column="1" MinHeight="100" ItemsSource="{Binding EquipmentList}" SelectedItem="{Binding SelectedEquipment}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="5*" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Width="30*"  Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Описание" Width="35*" Binding="{Binding Description}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Категория" Width="15*" Binding="{Binding EquipmentCategory.Name}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Единица измерения" Width="15*" Binding="{Binding Units}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel Grid.Row="2" Grid.Column="1" LastChildFill="True" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+            <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+            <Button Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.Column="1" LastChildFill="False">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
-            <Label></Label>
         </DockPanel>
     </Grid>
 </Window>

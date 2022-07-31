@@ -8,47 +8,59 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Additional
 {
+    //ViewModel для окна "Поиск сотрудника"
     internal class ChooseEmployeeViewModel:BaseViewModel
     {
 
         private RelayCommand _searchEmployeeCommand;
+        private RelayCommand _chooseEmployeeCommand;
         private string _searchingEmployeeName;
-        private IEnumerable<Employee> _employeeList;
-        private IEnumerable<Employee> _allEmployeeList;
+        private List<Employee> _employeeList;
+        private List<Employee> _allEmployeeList;
         private Employee _selectedEmployee;
 
+        //Введённое в строке поиска значение
         public string SearchingEmployeeName
         {
             get { return _searchingEmployeeName; }
             set { _searchingEmployeeName = value; OnPropertyChanged(nameof(SearchingEmployeeName)); }
         }
 
-        public IEnumerable<Employee> EmployeeList
+        //Список найденных сотрудников
+        public List<Employee> EmployeeList
         {
             get { return _employeeList; }
             set { _employeeList = value; OnPropertyChanged(nameof(EmployeeList)); }
         }
-        public IEnumerable<Employee> AllEmployeeList
+        //Список всех доступных для поиска сотрудников
+        public List<Employee> AllEmployeeList
         {
             get { return _allEmployeeList; }
             set { _allEmployeeList = value; OnPropertyChanged(nameof(AllEmployeeList)); }
         }
+        //Выбранный сотрудник
         public Employee SelectedEmployee
         {
             get { return _selectedEmployee; }
             set { _selectedEmployee = value; OnPropertyChanged(nameof(SelectedEmployee)); }
         }
 
+        //Конструктор без параметров
         public ChooseEmployeeViewModel()
         {
-            db = new ApplicationContext();
-            _employeeList = db.Employees.ToList();
-            _allEmployeeList = db.Employees.ToList();
+            using(db = new ApplicationContext())
+            {
+                db.Employees.ToList();
+                db.EmployeePositions.ToList();
+
+                _employeeList = db.Employees.Local.ToList();
+                _allEmployeeList = db.Employees.Local.ToList();
+            }
             _searchingEmployeeName = "";
 
         }
 
-        //Команда для поиска
+        //Команда для поиска сотрудника
         public RelayCommand SearchEmployeeCommand
         {
             get
@@ -56,13 +68,17 @@ namespace SpektrApp.ViewModels.AddService.AddMaintainedCompletedProject.Addition
                 return _searchEmployeeCommand ??
                   (_searchEmployeeCommand = new RelayCommand((o) =>
                   {
+                      //Очищаем результаты предыдущего поиска
+                      EmployeeList.Clear();
                       if(SearchingEmployeeName == "")
                       {
-                          EmployeeList = AllEmployeeList;
+                          //Если строка поиска пустая, то выводим всех доступных для поиска сотрудников
+                          EmployeeList = AllEmployeeList.Select(e=>e).ToList();
                       }
                       else
                       {
-                          EmployeeList = AllEmployeeList.Where(c => c.FullName.ToLower().Contains(SearchingEmployeeName.ToLower())).ToList();
+                          //Осуществляем поиск по совпадению со значением из строки поиска
+                          EmployeeList = AllEmployeeList.Where(e => e.FullName.ToLower().Contains(SearchingEmployeeName.ToLower())).ToList();
 
                       }
 

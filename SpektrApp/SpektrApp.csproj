@@ -8,6 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Images\basketIcon.png" />
+    <None Remove="Resources\Images\detailsIcon.png" />
+    <None Remove="Resources\Images\magnifierIcon.png" />
+    <None Remove="Resources\Images\plusIcon.png" />
+    <None Remove="Resources\Images\RemoveIcon.png" />
+    <None Remove="Resources\Images\test.jpg" />
+    <None Remove="Resources\Images\ZoomInIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\basketIcon.png" />
+    <Resource Include="Resources\Images\detailsIcon.png" />
+    <Resource Include="Resources\Images\magnifierIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\plusIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\RemoveIcon.png" />
+    <Resource Include="Resources\Images\test.jpg" />
+    <Resource Include="Resources\Images\ZoomInIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -20,6 +44,10 @@
     <None Update="SpektrDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\Schemes\" />
   </ItemGroup>
 
 </Project>

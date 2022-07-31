@@ -4,121 +4,216 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SpektrApp.Views.Reports"
+        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="Карточка клиента" Height="650" Width="1100"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/Resources/IconsDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="HasSchemeLabel">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding SelectedEntity.HasScheme}"
+                        Value="False">
+                        <Setter Property="TextBlock.Text" Value="Чертеж отсутствует"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ZoomSchemeIcon">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding SelectedEntity.HasScheme}"
+                        Value="True">
+                        <Setter Property="TextBlock.Visibility" Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedEntity.HasScheme}"
+                        Value="False">
+                        <Setter Property="TextBlock.Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedEntity,TargetNullValue=false}" 
+                        Value="false">
+                        <Setter Property="TextBlock.Visibility" Value="Hidden"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ZoomSchemeButton">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding SelectedEntity.HasScheme}"
+                        Value="True">
+                        <Setter Property="Button.IsHitTestVisible" Value="True"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedEntity.HasScheme}"
+                        Value="False">
+                        <Setter Property="Button.IsHitTestVisible" Value="False"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SelectedEntity,TargetNullValue=false}" 
+                        Value="false">
+                        <Setter Property="Button.IsHitTestVisible" Value="False"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"></RowDefinition>
-            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="86*"></RowDefinition>
             <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"></ColumnDefinition>
-            <ColumnDefinition Width="30*"></ColumnDefinition>
-            <ColumnDefinition Width="20*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="48*"></ColumnDefinition>
+            <ColumnDefinition Width="48*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*"></ColumnDefinition>
-                    <ColumnDefinition Width="65*"></ColumnDefinition>
-                    <ColumnDefinition Width="15*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+        <Border BorderThickness="0 0 2 0" Grid.Row="1" Grid.Column="1" BorderBrush="#FFB5B5B5">
+            <Grid  Margin="0 0 5 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="10*"></RowDefinition>
+                    <RowDefinition Height="45*"></RowDefinition>
+                    <RowDefinition Height="45*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Выберите клиента:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1"></ComboBox>
-                <Button Width="40" Content="Точки" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Margin="0 0 0 5"></Button>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="Выберите клиента:"></TextBlock>
+                    <ComboBox x:Name="ClientComboBox" Style="{StaticResource SpecialSelectClientComboBox}" ItemsSource="{Binding ClientList}" DisplayMemberPath="Name" SelectedItem ="{Binding SelectedClient}" Margin="5 0 0 0">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=ClientComboBox}">
+                                <behaviors:InvokeCommandAction Command="{Binding FilterByClientCommand}" CommandParameter="{Binding ElementName=ClientComboBox, Path=SelectedItem}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+
+                    </ComboBox>
+                    <Button Style="{StaticResource PlusAndMagnifierButtons}" Width="40" HorizontalAlignment="Left" Margin="5 0 0 0" Command="{Binding ShowSearchClientViewCommand}">
+                        <Image Style="{StaticResource MagnifierIcon}"></Image>
+                    </Button>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="Монтажные проекты:" Margin="0 0 0 5"></TextBlock>
+                    <DataGrid x:Name="CompletedProjectDataGrid" Style="{StaticResource SpecialDataGrid}"  MinHeight="150" MaxHeight="200" ItemsSource="{Binding CompletedProjectList}" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="5*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата сдачи" Binding="{Binding ProjectCompletionDate, StringFormat='dd/MM/yyyy'}" IsReadOnly="True" Width="20*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" IsReadOnly="True" Width="25*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дополнительная информация" Binding="{Binding ObjectDescription}" IsReadOnly="True" Width="40*"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="GotMouseCapture" SourceObject="{Binding ElementName=CompletedProjectDataGrid}">
+                                <behaviors:InvokeCommandAction Command="{Binding ShowAdditionalInfoCommand}" CommandParameter="{Binding ElementName=CompletedProjectDataGrid, Path=SelectedItem}" />
+                            </behaviors:EventTrigger>
+                            <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=CompletedProjectDataGrid}">
+                                <behaviors:InvokeCommandAction Command="{Binding ShowAdditionalInfoCommand}" CommandParameter="{Binding ElementName=CompletedProjectDataGrid, Path=SelectedItem}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </DataGrid>
+                </StackPanel>
+
+                <StackPanel Margin="5 5 0 0" Grid.Row="2">
+                    <DockPanel LastChildFill="False">
+                        <TextBlock Text="Обслуживаемые объекты:" DockPanel.Dock="Left" Margin="0 0 0 0"></TextBlock>
+                        <CheckBox x:Name="ShowActualCheckBox" IsChecked="{Binding IsCheckedShowActualCheckBox}"  DockPanel.Dock="Right" Margin="10 2 2 2" ClickMode="Release" Command="{Binding ShowActualMaintainedObjectCommand}" CommandParameter="{Binding ElementName=ShowActualCheckBox, Path=IsChecked}" ></CheckBox>
+                        <TextBlock Text="Отобразить актуальные:" DockPanel.Dock="Right"></TextBlock>
+
+                    </DockPanel>
+                    <DataGrid x:Name="MaintainedObjectDataGrid" Style="{StaticResource SpecialDataGrid}" MinHeight="150" MaxHeight="200" ItemsSource="{Binding MaintainedObjectList}" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="5*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата начала" Binding="{Binding ServiceStartDate, StringFormat='dd/MM/yyyy'}" IsReadOnly="True" Width="15*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дата окончания" Binding="{Binding ServiceEndDate, StringFormat='dd/MM/yyyy'}" IsReadOnly="True" Width="20*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" IsReadOnly="True" Width="20*"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Дополнительная информация" Binding="{Binding ObjectDescription}" IsReadOnly="True" Width="35*"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="GotMouseCapture" SourceObject="{Binding ElementName=MaintainedObjectDataGrid}">
+                                <behaviors:InvokeCommandAction Command="{Binding ShowAdditionalInfoCommand}" CommandParameter="{Binding ElementName=MaintainedObjectDataGrid, Path=SelectedItem}" />
+                            </behaviors:EventTrigger>
+                            <behaviors:EventTrigger EventName="SelectionChanged" SourceObject="{Binding ElementName=MaintainedObjectDataGrid}">
+                                <behaviors:InvokeCommandAction Command="{Binding ShowAdditionalInfoCommand}" CommandParameter="{Binding ElementName=MaintainedObjectDataGrid, Path=SelectedItem}" />
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
+                    </DataGrid>
+                </StackPanel>
+
+
             </Grid>
-        </StackPanel>
+        </Border>
 
-        <StackPanel Margin="5 40 0 0" Grid.Row="0" Grid.Column="0" Width="500" HorizontalAlignment="Left">
-            <TextBlock Text="Монтажные проекты:" Margin="0 0 0 5"></TextBlock>
-            <DataGrid MinHeight="150" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата сдачи" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Адрес" Width="25*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дополнительная информация" Width="40*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
 
-        <StackPanel Margin="5 5 0 0" Grid.Row="1" Grid.Column="0" Width="500" HorizontalAlignment="Left">
-            <DockPanel>
-                <TextBlock Text="Обслуживаемые объекты:" Margin="0 0 150 0"></TextBlock>
-                <TextBlock Text="Отобразить актуальное:" HorizontalAlignment="Right"></TextBlock>
-                <CheckBox HorizontalAlignment="Right" Margin="2"></CheckBox>
-            </DockPanel>
-            <DataGrid MinHeight="150" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="5*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата начала" Width="15*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дата окончания" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Адрес" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Дополнительная информация" Width="35*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="2" Margin="5 0 0 0">
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Grid Margin="5 10 5 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35*"></ColumnDefinition>
-                    <ColumnDefinition Width="65*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Выберите клиента:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="0" Grid.Column="1"></ComboBox>
-                <TextBlock Text="Вид услуги:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <ComboBox Style="{StaticResource SpecialComboBox}" Grid.Row="1" Grid.Column="1"></ComboBox>
-                <TextBlock Text="Адрес:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
-                <TextBlock Text="Дополнительная информация:" Grid.Row="3" Grid.Column="0" TextWrapping="Wrap"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" MinHeight="50" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap"></TextBox>
-            </Grid>
-        </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition Height="6*"></RowDefinition>
+                <RowDefinition Height="16*"></RowDefinition>
+                <RowDefinition Height="68*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="33*"></ColumnDefinition>
+                <ColumnDefinition Width="33*"></ColumnDefinition>
+                <ColumnDefinition Width="33*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="2">
-            
-        </StackPanel>
+            <TextBlock Text="Клиент:" Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBlock Text="{Binding SelectedEntity.Client.Name}" Grid.Row="0" Grid.Column="1" ></TextBlock>
+            <TextBlock Text="Вид услуги:" Grid.Row="1" Grid.Column="0"></TextBlock>
+            <TextBlock Text="{Binding SelectedEntity.ServiceType}" Grid.Row="1" Grid.Column="1" ></TextBlock>
+            <TextBlock Text="Адрес:" Grid.Row="2" Grid.Column="0"></TextBlock>
+            <TextBox Text="{Binding SelectedEntity.Address}" Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
+            <TextBlock Text="Дополнительная информация:" Grid.Row="3" Grid.Column="0" TextWrapping="Wrap"></TextBlock>
+            <TextBox Text="{Binding SelectedEntity.ObjectDescription}" Style="{StaticResource SpecialTextBox}" MinHeight="50" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap"></TextBox>
 
-        <StackPanel Margin="5 0 0 0" Grid.Row="1" Grid.Column="1" Width="450" HorizontalAlignment="Left" Grid.ColumnSpan="2">
-            <TextBlock Text="Установленное оборудование:" Margin="0 5 0 5"></TextBlock>
-            <DataGrid MinHeight="100" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Width="10*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Оборудование" Width="50*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Категория" Width="20*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Количество" Width="20*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <TextBlock Text="Ответственные сотрудники:" Margin="0 5 0 5"></TextBlock>
-            <DataGrid MinHeight="80" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ФИО" Width="55*"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Должность" Width="45*"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
 
-        <DockPanel Grid.Row="3" LastChildFill="True">
+            <Button Style="{StaticResource ZoomSchemeButton}" Command="{Binding ShowFullSizeSchemeCommand}" Panel.ZIndex="2" Width="Auto" Height="Auto" Margin="0" BorderThickness="0.5" Grid.Column="3" Grid.RowSpan="3" Opacity="1" Background="{x:Null}" ToolTip="Увеличить фотографию">
+                <Grid>
+                    <Image x:Name="PictureButton" Width="Auto" Height="Auto" Stretch="Uniform" Source="{Binding SelectedEntity.FilePath}">
+
+                    </Image>
+                </Grid>
+
+            </Button>
+            <TextBlock Panel.ZIndex="1" Width="Auto" Height="Auto" Style="{StaticResource HasSchemeLabel}" Grid.Column="3" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+            </TextBlock>
+
+            <TextBlock Width="Auto" Panel.ZIndex="0" Height="Auto" Style="{StaticResource ZoomSchemeIcon}" Opacity="0.4" Grid.Column="3" Grid.RowSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0">
+                 <Image Style="{StaticResource ZoomInIcon}" Height="20" Width="20" VerticalAlignment="Bottom" HorizontalAlignment="Right"></Image>
+            </TextBlock>
+
+
+
+            <StackPanel Margin="5 0 0 0" Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" HorizontalAlignment="Left" Grid.ColumnSpan="3">
+                <TextBlock Text="Установленное оборудование:" Margin="0 5 0 5"></TextBlock>
+                <DataGrid ItemsSource="{Binding SelectedEntity.EquipmentList}" Style="{StaticResource SpecialDataGrid}" MinHeight="100" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding IndexNumber}" IsReadOnly="True" Width="10*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Оборудование" Binding="{Binding Equipment.Name}" IsReadOnly="True" Width="50*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Категория" Binding="{Binding Equipment.EquipmentCategory.Name}" IsReadOnly="True"  Width="20*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Count}" IsReadOnly="True" Width="20*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <TextBlock Text="Ответственные сотрудники:" Margin="0 5 0 5"></TextBlock>
+                <DataGrid ItemsSource="{Binding SelectedEntity.EmployeeList}" Style="{StaticResource SpecialDataGrid}" MinHeight="120" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" IsReadOnly="True" Width="55*"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Должность" Binding="{Binding EmployeePosition.Name}" IsReadOnly="True" Width="45*"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+        </Grid>
+
+        <DockPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" LastChildFill="True">
             <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click" HorizontalAlignment="Left"></Button>
+            <Button x:Name="EditButton" Content="Изменить" DockPanel.Dock="Right" Command="{Binding EditInfoAboutSelectedEntityCommand}" HorizontalAlignment="Right" ></Button>
+
         </DockPanel>
-        <Line Grid.Row="0" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="800" Stroke="Black" />
-        <Line Grid.Row="1" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="800" Stroke="Black" />
-        <Line Grid.Row="2" Grid.Column="0" X1="525" Y1="0" X2="525" Y2="30" Stroke="Black" />
+
     </Grid>
 </Window>

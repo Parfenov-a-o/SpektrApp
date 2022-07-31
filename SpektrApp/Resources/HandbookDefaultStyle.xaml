@@ -5,7 +5,7 @@
         <Setter Property="Height" Value="25"/>
         <Setter Property="Margin" Value="10"/>
     </Style>
-    
+
     <Style x:Key="SpecialTextBox">
         <Setter Property="Control.Margin" Value="0 0 5 10"/>
     </Style>
@@ -46,4 +46,39 @@
     <Style x:Key="SpecialButton">
         <Setter Property="Button.Width" Value="200"/>
     </Style>
+
+    <Style x:Key="SpecialDatePicker">
+        <Setter Property="DatePicker.MaxHeight" Value="28"/>
+        <Setter Property="DatePicker.MaxWidth" Value="250"></Setter>
+        <Setter Property="DatePicker.VerticalAlignment" Value="Top"/>
+        <Setter Property="DatePicker.HorizontalAlignment" Value="Left"></Setter>
+    </Style>
+
+    <Style x:Key="SpecialSelectClientComboBox">
+        <Setter Property="ComboBox.MaxHeight" Value="20"/>
+        <Setter Property="ComboBox.MinWidth" Value="250"/>
+        <Setter Property="ComboBox.VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="PlusAndMagnifierButtons">
+        <Setter Property="Button.Height" Value="20"/>
+        <Setter Property="Button.Width" Value="30"/>
+        <Setter Property="Button.VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="BasketButton">
+        <Setter Property="Button.Height" Value="30"/>
+        <Setter Property="Button.Width" Value="30"/>
+        <Setter Property="Button.VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="SpecialDataGrid">
+        <Setter Property="DataGrid.CanUserAddRows" Value="false"/>
+        <Setter Property="DataGrid.AutoGenerateColumns" Value="false"/>
+        <Setter Property="DataGrid.SelectionMode" Value="Single"/>
+        <Setter Property="DataGrid.VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="DataGrid.HorizontalScrollBarVisibility" Value="Visible"/>
+    </Style>
+
+
 </ResourceDictionary>

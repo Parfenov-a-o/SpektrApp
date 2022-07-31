@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SpektrApp.ViewModels.Reports;
 
 namespace SpektrApp.Views.Reports
 {
@@ -22,6 +23,8 @@ namespace SpektrApp.Views.Reports
         public ClientCardView()
         {
             InitializeComponent();
+
+            this.DataContext = new ClientCardViewModel();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -26,6 +26,12 @@ namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject
 
             this.DataContext = new AddMaintainedCompletedProjectViewModel();
         }
+        internal AddMaintainedCompletedProjectView(AddMaintainedCompletedProjectViewModel VM)
+        {
+            InitializeComponent();
+
+            this.DataContext = VM;
+        }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
@@ -34,7 +40,18 @@ namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            //this.DialogResult = true;
+
+            //AddMaintainedCompletedProjectViewModel vm = this.DataContext as AddMaintainedCompletedProjectViewModel;
+            
+            //if (vm.MaintainedObject.Client != null)
+            //{
+            //    this.DialogResult = true;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Вы не выбрали клиента!");
+            //}
         }
     }
 }

@@ -29,11 +29,11 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Введите логин:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding User.Login}" Style="{StaticResource SpecialTextBox}" Grid.Row="0" Grid.Column="1"></TextBox>
                 <TextBlock Text="Введите пароль:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="1" Grid.Column="1"></TextBox>
-                <TextBlock Text="Введите роль:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Style="{StaticResource SpecialTextBox}" Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Text="{Binding User.Password}" Style="{StaticResource SpecialTextBox}" Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBlock Text="Выберите роль:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <ComboBox ItemsSource="{Binding UserRoleList}" SelectedItem="{Binding SelectedUserRole}" DisplayMemberPath="Name" Grid.Row="2" Grid.Column="1"></ComboBox>
             </Grid>
         </StackPanel>
 

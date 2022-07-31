@@ -31,7 +31,15 @@ namespace SpektrApp.Views.AddService.AddMaintainedCompletedProject.AdditionalMai
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            ChooseEmployeeViewModel vm = this.DataContext as ChooseEmployeeViewModel;
+            if (vm.SelectedEmployee != null)
+            {
+                this.DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Вы не выбрали сотрудника!");
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -10,6 +10,7 @@ using System.Windows;
 
 namespace SpektrApp.ViewModels.Handbook
 {
+    //ViewModel для окна "Справочник сотрудников"
     internal class EmployeeViewModel:BaseViewModel
     {
         private RelayCommand addCommand;
@@ -18,21 +19,25 @@ namespace SpektrApp.ViewModels.Handbook
         private IEnumerable<EmployeePosition> _employeePositionList;
         private Employee? _selectedEmployee;
 
+        //Список сотрудников
         public IEnumerable<Employee> EmployeeList
         {
             get { return _employeeList; }
             set { _employeeList = value; OnPropertyChanged("EmployeeList"); }
         }
+        //Список должностей сотрудников
         public IEnumerable<EmployeePosition> EmployeePositionList
         {
             get { return _employeePositionList; }
             set { _employeePositionList = value; OnPropertyChanged(nameof(EmployeePositionList)); }
         }
+        //Выбранный сотрудник
         public Employee? SelectedEmployee
         {
             get { return _selectedEmployee; }
             set { _selectedEmployee = value; OnPropertyChanged(nameof(SelectedEmployee)); }
         }
+        //Конструктор без параметров
         public EmployeeViewModel()
         {
             db = new ApplicationContext();
@@ -46,7 +51,7 @@ namespace SpektrApp.ViewModels.Handbook
 
 
 
-        //Команда для добавления
+        //Команда для добавления нового сотрудника
         public RelayCommand AddCommand
         {
             get
@@ -74,7 +79,7 @@ namespace SpektrApp.ViewModels.Handbook
         }
 
 
-        //Команда для редактирования
+        //Команда для редактирования информации о выбранном сотруднике
         public RelayCommand EditCommand
         {
             get
@@ -91,6 +96,7 @@ namespace SpektrApp.ViewModels.Handbook
                       // получаем выделенный объект
                       Employee employee = selectedItem as Employee;
 
+                      //Копируем данные в новый VM
                       EmployeeEditInfoViewModel emplvm = new EmployeeEditInfoViewModel(new Employee()
                       {
                           Id = employee.Id,
@@ -108,11 +114,15 @@ namespace SpektrApp.ViewModels.Handbook
 
                       });
 
+                      //Создаём соответствующее представление
                       EmployeeEditInfoView view = new EmployeeEditInfoView(emplvm);
 
+                      //Запуск диалогового окна
                       if (view.ShowDialog() == true)
                       {
+                          //Извлекаем из БД объект с соответствующим id
                           employee = db.Employees.Find((object)emplvm.Employee.Id);
+                          //Вносим изменения и сохраняем в БД
                           if (employee != null)
                           {
                               employee.Id = emplvm.Employee.Id;

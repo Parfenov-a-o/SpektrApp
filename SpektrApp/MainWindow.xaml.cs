@@ -129,5 +129,18 @@ namespace SpektrApp
                 //ClientCardMenuItem.IsEnabled = true;
             }
         }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
+
+        private void ResetDBMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            using (ApplicationContext db = new ApplicationContext(0))
+            {
+
+            }
+        }
     }
 }
