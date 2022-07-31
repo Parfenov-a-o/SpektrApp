@@ -1,0 +1,39 @@
+﻿<Window x:Class="SpektrApp.Views.InfoUser.UserRoleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpektrApp.Views.InfoUser"
+        mc:Ignorable="d"
+        Title="Роли пользователей" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85*"></RowDefinition>
+            <RowDefinition Height="15*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="10">
+            <DataGrid x:Name="HandBookDataGrid" ItemsSource="{Binding UserRoleList}" CanUserDeleteRows="False"  SelectedItem="{Binding SelectedUserRole}" Style="{StaticResource SpecialDataGrid}" MaxHeight="250" MinHeight="200" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="20*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Роль пользователя" Binding="{Binding Name}" IsReadOnly="True" Width="80*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DockPanel LastChildFill="True" HorizontalAlignment="Left">
+                <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Command="{Binding AddCommand}"></Button>
+                <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+                <Button Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+            </DockPanel>
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
+    </Grid>
+</Window>

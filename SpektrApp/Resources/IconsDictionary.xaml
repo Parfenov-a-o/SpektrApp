@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="BasketIcon">
+        <Setter Property="Image.Source" Value="\Resources\Images\basketIcon.png"></Setter>
+    </Style>
+
+    <Style x:Key="MagnifierIcon">
+        <Setter Property="Image.Source" Value="\Resources\Images\magnifierIcon.png"></Setter>
+    </Style>
+
+    <Style x:Key="PlusIcon">
+        <Setter Property="Image.Source" Value="\Resources\Images\plusIcon.png"></Setter>
+    </Style>
+
+    <Style x:Key="ZoomInIcon">
+        <Setter Property="Image.Source" Value="\Resources\Images\ZoomInIcon.png"></Setter>
+    </Style>
+    
+    <Style x:Key="RemoveIcon">
+        <Setter Property="Image.Source" Value="\Resources\Images\RemoveIcon.png"></Setter>
+    </Style>
+
+</ResourceDictionary>

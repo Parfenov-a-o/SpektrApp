@@ -1,0 +1,47 @@
+﻿<Window x:Class="SpektrApp.Views.Handbook.PositionEmployeeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpektrApp.Views.Handbook"
+        mc:Ignorable="d"
+        Title="Должности сотрудников" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary Source="/Resources/HandbookDefaultStyle.xaml"></ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="35*"></RowDefinition>
+            <RowDefinition Height="14*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="96*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid x:Name="HandBookDataGrid" Style="{StaticResource SpecialDataGrid}" Margin="0 10 0 0" Grid.Row="0" Grid.Column="1" MinHeight="100" ItemsSource="{Binding EmployeePositionList}" SelectedItem="{Binding SelectedEmployeePosition}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="10*" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование должности" Width="100*" Binding="{Binding Name}" IsReadOnly="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel LastChildFill="True" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top">
+            <Button x:Name="AddButton" Content="Добавить" DockPanel.Dock="Left" Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+            <Button Content="Удалить" DockPanel.Dock="Right" Command="{Binding DeleteCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+            <Button Content="Изменить" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=HandBookDataGrid,Path=SelectedItem}"></Button>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="1"  LastChildFill="True">
+            <Button x:Name="BackButton" Content="Назад" DockPanel.Dock="Left" Click="BackButton_Click"></Button>
+            <Label></Label>
+        </DockPanel>
+
+    </Grid>
+</Window>
